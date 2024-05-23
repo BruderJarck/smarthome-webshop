@@ -1,0 +1,9 @@
+import random, datetime
+from webshop_app.models import SensorModel, SensorValueModel
+
+sensor = SensorModel.objects.get(pk=1)
+
+for x in range(30):
+...     val = SensorValueModel.objects.create(sensor=sensor,temp=random.randint(0,100),hum=random.randint(0,100),pres=random.randint(0,1000),dt=datetime.datetime.now())
+...     val.save()
+

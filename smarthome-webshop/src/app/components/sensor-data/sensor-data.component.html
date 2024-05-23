@@ -1,0 +1,34 @@
+<h2 class="header">Your sensors:</h2>
+<div fxLayout="row" fxLayoutAlign="center center"><mat-spinner *ngIf=loading></mat-spinner></div>
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf=noSensors>
+  no sensors available
+  <br>
+  <button mat-button routerLink="/product-list">buy one</button>
+</div>
+<div style="padding:10px">
+<mat-accordion>
+  <div *ngFor="let sensor of sensors">
+    <mat-expansion-panel  hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ sensor.id }}: {{ sensor.name }}
+        </mat-panel-title>
+        <mat-panel-description>
+          location: {{ sensor.location }} 
+          <span style="margin-left: 50px;">ip-address: {{ sensor.ip_address}}</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="card">
+        <div flxLayout="column">
+          <p-chart type="line" [data]="sensor.data" fxFlex=90></p-chart>
+          <div fxLayout="column" >
+            <span>max temp {{ maxTemp }}</span>
+            <span>max hum {{ maxHum }}</span>
+            <span>max pres {{ maxPres }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </div>
+</mat-accordion>
+</div>

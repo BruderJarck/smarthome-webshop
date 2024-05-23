@@ -1,0 +1,25 @@
+<div fxLayoutGap="grid" fxLayout="row grid" fxLayoutAlign="center">
+  <mat-card class="card" matRipple *ngFor="let product of products">
+    <a>
+      <mat-card-content
+        fxLayout="column"
+        class="card-content"
+        routerLink="/detail/{{ product.id }}"
+      >
+        <img mat-card-image [src]=product.img class="card-content picture" />
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div fxLayout="row" class="card-content price wrapper">
+            <div class="card-content price main">{{ product.price }}</div>
+            <div class="card-content price upper" fxLayoutAlign="start start">
+              99€
+            </div>
+          </div>
+          <h2 fxFlexOffset="5">{{ product.name }}</h2>
+        </div>
+        <div class="card-content text">
+          {{ product.description }}
+        </div>
+      </mat-card-content>
+    </a>
+  </mat-card>
+</div>

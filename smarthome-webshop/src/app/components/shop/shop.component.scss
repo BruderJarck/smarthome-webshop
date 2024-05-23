@@ -1,0 +1,41 @@
+.card {
+  width: 200px;
+  height: 250px;
+  margin: 8px;
+  a {
+    cursor: pointer;
+  }
+
+  .card-content {
+    &.picture {
+      max-height: 190px;
+    }
+    &.price {
+      &.wrapper {
+        padding-bottom: 4px;
+      }
+      &.main {
+        font-weight: 500;
+        font-size: 18px;
+      }
+      &.upper {
+        height: 20px;
+        font-size: 12px;
+        line-height: 15px;
+        padding-left: 1px;
+        font-weight: 450;
+      }
+    }
+    &.text {
+      height: 40px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+  }
+}
+
+h2 {
+  margin: 0;
+}

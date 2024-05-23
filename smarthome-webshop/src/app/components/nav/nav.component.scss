@@ -1,0 +1,32 @@
+.nav-wrapper {
+  padding: 16px 32px;
+  background-color: whitesmoke;
+  height: 72px;
+}
+
+.search-bar {
+  &.partent {
+    padding: 0 32px !important;
+  }
+
+  &.child {
+    box-sizing: border-box;
+  }
+}
+
+img {
+  height: 50px;
+}
+
+.button ::ng-deep .mat-flat-button,
+.mat-raised-button,
+.mat-fab,
+.mat-mini-fab {
+  color: black;
+  background-color: #fbac09;
+}
+
+::ng-deep .mat-badge-medium .mat-badge-content {
+  background-color: #000000;
+  color: #fbac09;
+}

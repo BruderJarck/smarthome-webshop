@@ -1,0 +1,29 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="70" fxFill style="border-radius: 0px; padding: 20px;">
+          <div fxLayout="column" fxLayoutAlign="center center"><img [src]=profile_picture_path height=150px width=auto style="border-radius:100%;"></div>
+          <div fxLayout="row" style="margin-top: 10px" fxLayoutGap="10px">
+            <div style="color: gray;" fxFlex=50>
+              <p>username</p>
+              <p>email</p>
+              <p>date joined</p>
+            </div>
+            
+            <div fxFlex=50 style=" word-wrap: break-word;">
+              <p>{{ username }}</p>
+              <p>{{ email }}</p>
+              <p>gestern</p>
+            </div>
+
+          </div>
+          <hr>
+          <a href="/user/edit" class="link">edit acoount</a>
+          <br>
+          <a href="/sensors" class="link">sensors</a>
+          <br>
+          <button (click)="logout()" class="link">logout</button>
+        </div>
+                  
+    <!-- <div fxFlex style="border-radius: 0px; padding: 20px">
+          <router-outlet></router-outlet>
+      </div> -->
+</div>

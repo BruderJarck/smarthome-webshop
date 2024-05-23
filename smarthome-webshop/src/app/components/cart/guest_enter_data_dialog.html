@@ -1,0 +1,10 @@
+<mat-dialog-content fxLayout="column">
+    <mat-form-field appearance="fill">
+        <mat-label>enter email-address</mat-label>
+        <input matInput #email required [formControl]="emailControl">
+        <mat-error *ngIf="emailControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button cdkFocusInitial (click)="emailControl.valid && submitEmail(email.value)">weiter zur kasse</button>
+</mat-dialog-actions>
