@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SensorModel } from '../sensor';
+import { SensorModel } from '../models';
 import { Observable, of } from 'rxjs';
-import { SensorValueModel } from '../sensor_value';
+import { SensorValueModel } from '../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

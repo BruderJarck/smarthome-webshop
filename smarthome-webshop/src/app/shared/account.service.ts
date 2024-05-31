@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { RespModel } from '../resp';
-import { UserModel } from '../user';
+import { RespModel } from '../models';
+import { UserModel } from '../models';
 import { SharedService } from './shared.service';
 import { environment } from 'src/environments/environment';
 
@@ -57,6 +57,13 @@ export class AccountService {
   isExpired(token: string): boolean {
     return this.jwtHelper.isTokenExpired(token);
   }
+  
+  isLoggedIn(): boolean {
+    var isAccessExpired = this.jwtHelper.isTokenExpired(localStorage.getItem("access") || "")
+    var isRefreshExpired = this.jwtHelper.isTokenExpired(localStorage.getItem("refresh") || "")
+    console.log(isAccessExpired, isRefreshExpired)
+    return !isAccessExpired || !isRefreshExpired
+  }
 
   login(username: string, password: string) {
     this.logout()
@@ -71,7 +78,7 @@ export class AccountService {
                 localStorage.setItem('email', res[0].email)
                 localStorage.setItem('profile_pic', res[0].profile_picture)
                 localStorage.setItem('id', String(res[0].id))
-                
+                this.router.navigateByUrl(localStorage.getItem('routeAfterLogin') || '/')
               },
               (err) => {
                 console.log(err);
@@ -124,10 +131,15 @@ export class AccountService {
     localStorage.removeItem('email')
     localStorage.removeItem('profile_pic')
     localStorage.removeItem('id')
+    localStorage.removeItem('products_in_cart')
   }
 
   getAllUseres(): Observable<UserModel[]>{
     return this.http.get<UserModel[]>(`${this.usersURL}`);
+  }
+
+  getCurrentUser(): Observable<UserModel> {
+    return this.getUserById(Number(localStorage.getItem("id") || ""))
   }
 
   getUserById(id: number): Observable<UserModel> {

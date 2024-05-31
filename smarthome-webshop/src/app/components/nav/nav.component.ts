@@ -59,8 +59,8 @@ export class Login {
 
   hide = true;
   constructor(
-    public accountService: AccountService, 
-    private router: Router,) {}
+    public accountService: AccountService
+  ) {}
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -75,12 +75,11 @@ export class Login {
     this.accountService
       .login(this.email.value, this.password.value)
       .subscribe(
-        () =>{ this.router.navigateByUrl(localStorage.getItem('routeAfterLogin') || '/')}
+        (res) =>{ console.log(res)}
       );
   }
 
   onLogout(){
     this.accountService.logout()
-
   }
 }

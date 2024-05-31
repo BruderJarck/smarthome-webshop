@@ -11,8 +11,8 @@ import random
 import datetime
 import webshop.settings as settings
 
-from .serializers import ProductSerializer, SensorSerializer, SensorValueSerializer, PrivateUserSerializer, PublicUserSerializer
-from .models import ProductModel, SensorModel, SensorValueModel
+from .serializers import ProductSerializer, SensorSerializer, SensorValueSerializer, PrivateUserSerializer, PublicUserSerializer, OrderingSerializer
+from .models import ProductModel, SensorModel, SensorValueModel, OrderingModel
 
 User = get_user_model()
 
@@ -75,10 +75,18 @@ class CustomUserViewset(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
+class OrderingViewSet(viewsets.ModelViewSet):
+    queryset = OrderingModel.objects.all()
+    serializer_class = OrderingSerializer
+    search_field = ['id', 'user', 'product']
+    filter_backends = (filters.SearchFilter, )
+    authentication_classes = [JWTAuthentication, ]
+    permission_classes = [IsAuthenticated, ]
+
 @decorators.api_view(['POST'])
 @decorators.permission_classes([AllowAny])
 def register_new_user(request):
-    serializer = PrivateUserSerializer(data=request.data)
+    serializer = PublicUserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(data=serializer.data, status=201)

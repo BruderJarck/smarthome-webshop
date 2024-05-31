@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AnyObject } from 'chart.js/types/basic';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ProductModel } from '../product';
+import { OrderModel, ProductModel } from '../models';
 import { AccountService } from './account.service';
 
 @Injectable({
@@ -33,13 +33,12 @@ export class ProductService {
     return this.http.get<ProductModel>(url);
   }
 
-  updateProduct(product: ProductModel): Observable<any> {
-    return this.http.put(this.productsURL, product);
+  updateProduct(product: ProductModel): Observable<ProductModel> {
+    return this.http.put<ProductModel>(this.productsURL, product);
   }
 
-  newProduct(data: FormData) {
-    console.log(data.get('name'), data.get('img'));
-    return this.http.post(this.productsURL, data);
+  newProduct(data: FormData): Observable<ProductModel> {
+    return this.http.post<ProductModel>(this.productsURL, data);
   }
 
   deleteProduct(product_id: number) {
@@ -51,13 +50,14 @@ export class ProductService {
     if (!term.trim()) {
       return of([]);
     }
-    return this.http.get<ProductModel[]>(`${this.productsURL}?search=${term}`);
+    return this.http.get<ProductModel[]>(`${this.productsURL}?search=${term}`)
   }
 
-  submit_order(email:string, products:AnyObject[]) {
-    return this.http.post(this.productsURL + "submit_order/", {
-      "email": email,
-      "products": products,
-    }) 
+  submitOrder(userId: number, productId: number): Observable<OrderModel> {
+    
+    return this.http.post<OrderModel>(this.baseURL + "orders/", {
+      "user": userId,
+      "product": productId,
+    })
   }
 }

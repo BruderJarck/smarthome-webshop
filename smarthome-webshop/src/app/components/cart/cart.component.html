@@ -1,5 +1,5 @@
 <div
-  *ngIf="items.length == 0"
+  *ngIf="itemsToBePruchased.length == 0"
   class="wrapper shop-now"
   fxLayout="column"
   fxLayoutAlign="center center"
@@ -14,12 +14,12 @@
   fxLayout="row"
   class="content-container wrapper"
   fxLayout="column"
-  *ngIf="items.length != 0"
+  *ngIf="itemsToBePruchased.length != 0"
 >
   <div fxLayout="row" fxLayoutGap="16px" fxFlex="grow">
     <div fxLayout="column" fxFlex="60%">
       <div fxFlex="grow">
-        <mat-card *ngFor="let item of items" class="card height">
+        <mat-card *ngFor="let item of itemsToBePruchased" class="card height">
           <mat-card-content fxFlex="grow">
             <div fxLayout="column" >
               <div fxFlex="30%" class="picture" fxLayoutAlign="center none">
@@ -90,7 +90,7 @@
     <div fxLayout="column" fxFlex="40%">
       <div fxFlex="grow">
         <mat-card class="card" fxLayout="column">
-          <button mat-flat-button fxFlex="grow" class="button long" (click)="openDialog()">
+          <button mat-flat-button fxFlex="grow" class="button long" (click)="checkout()">
             Kaufen
           </button>
           <br />

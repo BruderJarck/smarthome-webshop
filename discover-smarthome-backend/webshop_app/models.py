@@ -47,12 +47,28 @@ class SensorValueModel(models.Model):
 class UserProfile(AbstractUser):
     email = models.EmailField(
         help_text='Required. example: jon.doe@email.com')
-    profile_picture = models.CharField(
+    profile_picture = models.CharField(blank=True, null=True,
         max_length=10000000,
-        help_text="this needs to the cloudinary url which represents the desired image")
+        help_text="This needs to the cloudinary url which represents the desired image")
 
     def __str__(self) -> str:
         return f"User {self.username}"
+
+class OrderingModel(models.Model):
+    class StateChoices(models.TextChoices):
+        recveived_order = "OrderReceived", "OrderReceived"
+        processing = "Processing", "Processing"
+        delivery = "Delivery", "Delivery"
+        issue = "Issue", "Issue"
+
+    id = models.AutoField(primary_key=True)
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    status = models.CharField(max_length=200, choices=StateChoices.choices, default=StateChoices.recveived_order)
+
+    def __str__(self) -> str:
+        return f"{self.id} has status '{self.status}'"
+
     
 # CloudinaryImage("leonski.png").build_url(width=250, height=250, gravity="faces", crop="thumb")
 # cloudinary.uploader.upload(CloudinaryImage("me.jpg").build_url(width=250, height=250, gravity="faces", crop="thumb"))

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SensorService } from 'src/app/shared/sensor.service';
-import { SensorModel } from '../../sensor';
-import { SensorValueModel } from 'src/app/sensor_value';
+import { SensorModel } from '../../models';
+import { SensorValueModel } from 'src/app/models';
 import { AccountService } from 'src/app/shared/account.service';
 @Component({
   selector: 'app-sensor-data',

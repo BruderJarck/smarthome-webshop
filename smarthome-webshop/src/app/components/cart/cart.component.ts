@@ -13,7 +13,7 @@ import { Login } from '../nav/nav.component';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  items: any = [];
+  public itemsToBePruchased: any[] = [];
 
   totalPrice: number = 0;
   mwst: number = 0.24; //in %
@@ -25,12 +25,17 @@ export class CartComponent implements OnInit {
 
   constructor(
     public sharedService: SharedService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private accountService: AccountService,
+    private productService: ProductService,
+    private router: Router
+
     ) {}
 
   ngOnInit(): void {
+
     this.sharedService.productList.subscribe((item: any) => {
-      this.items = [...item];
+      this.itemsToBePruchased = [...item];
 
       this.calcPrice();
     });
@@ -38,8 +43,7 @@ export class CartComponent implements OnInit {
 
   removeItem(e: any) {
     let id = e.product.id;
-    let ammount = e.ammount;
-    this.sharedService.deleteProductById(id, -ammount);
+    this.sharedService.deleteProductById(id);
   }
 
   changeAmmount(e: any, who: string, input: any) {
@@ -59,7 +63,7 @@ export class CartComponent implements OnInit {
     this.totalPrice = 0;
     this.totalItemsBaseCost = 0;
 
-    for (let item of this.items) {
+    for (let item of this.itemsToBePruchased) {
       this.totalItemsBaseCost =
         this.totalItemsBaseCost + item.ammount * (item.product.price + 0.99);
       this.totalItems = this.totalItems + item.ammount;
@@ -72,14 +76,32 @@ export class CartComponent implements OnInit {
       this.shipCost * this.totalItems;
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(loginOrAsGuestDialogComponent);
+  checkout(): void {
+    console.log(this.accountService.isLoggedIn())
+    if (this.accountService.isLoggedIn() == true){
+      if (this.pay() == true){
+        this.itemsToBePruchased.forEach((element) => {
+          console.log(Number(localStorage.getItem("id") || ""))
+          this.productService.submitOrder(Number(localStorage.getItem("id") || ""), element.product.id).subscribe((resp)=> console.log(resp))
+        })
+      }
+      this.router.navigateByUrl("/sensors")
+    }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    else{
+      const dialogRef = this.dialog.open(loginOrAsGuestDialogComponent)
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
   }
-}
+  
+  pay(): Boolean {
+    return true;
+  }
+  }
+
+
 
 @Component({
   selector: 'guest-enter-data-dialog',
@@ -133,6 +155,7 @@ export class loginOrAsGuestDialogComponent {
       this.router.navigateByUrl('/checkout')
     }
   }
+
   login(){
     localStorage.setItem('routeAfterLogin', '/checkout')
     const dialogRef = this.dialog.open(Login);
@@ -144,16 +167,16 @@ export class loginOrAsGuestDialogComponent {
           if(element.product){
               element.product.ip_address = "default_ip_address"
               element.product.location = "default location"
-              element.product.name = "defautlt location "
+              element.product.name = "default location "
           }
         })
         console.log(buffer);
         
-          this.productService.submit_order(
-            localStorage.getItem('email') || "no email found",
-            buffer
-          ).subscribe((res) => console.log(res)
-          )
+          // this.productService.submitOrder(
+          //   localStorage.getItem('email') || "no email found",
+          //   buffer
+          // ).subscribe((res) => console.log(res)
+          // )
         };
         
         this.router.navigateByUrl('/checkout')

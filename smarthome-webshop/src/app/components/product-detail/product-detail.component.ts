@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/shared/product.service';
 import { SharedService } from 'src/app/shared/shared.service';
-import { ProductModel } from '../../product';
+import { ProductModel } from '../../models';
 
 @Component({
   selector: 'app-product-detail',
