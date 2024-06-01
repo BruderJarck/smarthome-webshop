@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { AnyObject } from 'chart.js/types/basic';
 import { BehaviorSubject, Subject } from 'rxjs';
 
