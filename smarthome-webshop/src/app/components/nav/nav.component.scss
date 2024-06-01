@@ -18,10 +18,10 @@ img {
   height: 50px;
 }
 
-.button ::ng-deep .mat-flat-button,
-.mat-raised-button,
-.mat-fab,
-.mat-mini-fab {
+.button ::ng-deep .mat-mdc-unelevated-button,
+.mat-mdc-raised-button,
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
   color: black;
   background-color: #fbac09;
 }

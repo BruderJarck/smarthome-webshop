@@ -19,7 +19,7 @@
   <div fxLayout="row" fxLayoutGap="16px" fxFlex="grow">
     <div fxLayout="column" fxFlex="60%">
       <div fxFlex="grow">
-        <mat-card *ngFor="let item of itemsToBePruchased" class="card height">
+        <mat-card appearance="outlined" *ngFor="let item of itemsToBePruchased" class="card height">
           <mat-card-content fxFlex="grow">
             <div fxLayout="column" >
               <div fxFlex="30%" class="picture" fxLayoutAlign="center none">
@@ -89,7 +89,7 @@
     </div>
     <div fxLayout="column" fxFlex="40%">
       <div fxFlex="grow">
-        <mat-card class="card" fxLayout="column">
+        <mat-card appearance="outlined" class="card" fxLayout="column">
           <button mat-flat-button fxFlex="grow" class="button long" (click)="checkout()">
             Kaufen
           </button>

@@ -85,7 +85,7 @@ input {
   font-size: 15px;
   line-height: 15px;
 }
-.mat-icon-button {
+.mat-mdc-icon-button {
   height: 20px;
   width: 20px;
   font-size: 15px;
@@ -140,7 +140,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.button ::ng-deep .mat-flat-button{
+.button ::ng-deep .mat-mdc-unelevated-button{
   color: black;
   background-color: #fbac09;
 }
