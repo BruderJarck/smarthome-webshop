@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validators, EmailValidator} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, EmailValidator} from '@angular/forms';
 import { AccountService } from 'src/app/shared/account.service';
 import { Router } from '@angular/router';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
@@ -29,16 +29,16 @@ export class RegisterNewUserComponent implements OnInit {
 
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private router: Router,
   ) {}
 
   ngOnInit() {
-    this.FormGroup = new FormGroup({
-      standartCtrl: new FormControl('', Validators.required),
-      emailCtrl: new FormControl('', [Validators.required, Validators.email]),
-      passwordCtrl: new FormControl('', [Validators.required]),
+    this.FormGroup = new UntypedFormGroup({
+      standartCtrl: new UntypedFormControl('', Validators.required),
+      emailCtrl: new UntypedFormControl('', [Validators.required, Validators.email]),
+      passwordCtrl: new UntypedFormControl('', [Validators.required]),
       // profilePictureCtrl: new FormControl('', Validators.required),
     })
   }

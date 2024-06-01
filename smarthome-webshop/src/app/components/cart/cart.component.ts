@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/account.service';
@@ -110,7 +110,7 @@ export class CartComponent implements OnInit {
 export class GuestEnterDataComponent {
   constructor(private dialog: MatDialog,){}
 
-  emailControl = new FormControl('', [Validators.required, Validators.email]);
+  emailControl = new UntypedFormControl('', [Validators.required, Validators.email]);
 
   ngOnInit(){}
 

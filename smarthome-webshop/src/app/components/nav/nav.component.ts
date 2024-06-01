@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/account.service';
@@ -54,8 +54,8 @@ export class NavComponent implements OnInit {
   templateUrl: 'login.html',
 })
 export class Login {
-  email = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required]);
+  email = new UntypedFormControl('', [Validators.required]);
+  password = new UntypedFormControl('', [Validators.required]);
 
   hide = true;
   constructor(
