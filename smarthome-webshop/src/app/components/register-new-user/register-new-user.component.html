@@ -37,7 +37,7 @@
 
     </form>
   </mat-step>
-  <mat-step [editable]="isEditable" label="crop image" >
+  <!-- <mat-step [editable]="isEditable" label="crop image" >
         <div fxLayout="column" fxLayoutAlign="center center">
         <mat-label>choose profile picture and crop it to size</mat-label>
         <input hidden (change)="fileChangeEvent($event)" #fileInput type="file">
@@ -60,12 +60,12 @@
         <button mat-button matStepperNext>Next</button>
       </div>
     </div>
-  </mat-step>
+  </mat-step> -->
   <mat-step>
     <ng-template matStepLabel>summary</ng-template>
       <div fxLayout="column" fxFill fxLayoutAlign="center center">
         <span>überprüfe ob die eingegebenen daten stimmen</span>
-        <img [src]=croppedImage height=150px width=auto style="border-radius:100%;">
+        <img src="/assets/default_avatar.png" height=150px width=auto style="border-radius:100%;">
           <div fxLayout="row" style="margin-top: 10px" fxLayoutGap="10px">
             <div style="color: gray;" >
               <p>username</p>

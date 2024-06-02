@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-edit-account',

@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, EmailValidator} from '@angular/forms';
 import { AccountService } from 'src/app/shared/account.service';
 import { Router } from '@angular/router';
-import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
-
 
 @Component({
   selector: 'app-register-new-user',
@@ -23,6 +21,7 @@ export class RegisterNewUserComponent implements OnInit {
   username: string = "no username"
   email: string = "no email"
   password: string = "no passoword"
+  default_avatar_path: string = "/assets/default_avatar.png"
    
 
   @ViewChild('stepper') stepper: any;
@@ -35,6 +34,7 @@ export class RegisterNewUserComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
     this.FormGroup = new UntypedFormGroup({
       standartCtrl: new UntypedFormControl('', Validators.required),
       emailCtrl: new UntypedFormControl('', [Validators.required, Validators.email]),
@@ -59,12 +59,13 @@ export class RegisterNewUserComponent implements OnInit {
       // show message
   }
 
-  onFileSelected(event: any) {
+  readDefaultPhoto(event: any) {
     var reader = new FileReader();
-		reader.readAsDataURL(event.target.files[0]);
+		// reader.readAsDataURL(this.default_avatar_path);
 		reader.onload = (_event) => {
 		this.url = reader.result;
     this.srcResult = event.target.files[0];
+    // this.image = reader.
     console.log(event.target);
 		}
   }

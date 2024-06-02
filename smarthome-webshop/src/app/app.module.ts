@@ -33,9 +33,9 @@ import { UserpageComponent } from './components/userpage/userpage.component';
 import { EditAccountComponent } from './components/edit-account/edit-account.component';
 
 import { authInterceptorProviders } from './auth-interceptor';
-import { ImageCropperModule } from 'ngx-image-cropper';
 import { KasseComponent } from './components/kasse/kasse.component';
 import { ErrorComponent } from './error/error.component';
+import { provideHttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -71,10 +71,10 @@ import { ErrorComponent } from './error/error.component';
     //primeng modules
     ChartModule,
     InputNumberModule,
-    AccordionModule,
-    ImageCropperModule,
+    AccordionModule
   ],
   providers: [
+    provideHttpClient(),
     authInterceptorProviders,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
