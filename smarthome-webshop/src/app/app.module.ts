@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 //prime ng imports
 import { ChartModule } from 'primeng/chart';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { AccordionModule } from 'primeng/accordion';
 
 //import components from ./components
 import { CartComponent } from './components/cart/cart.component';
@@ -25,6 +24,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { LoginFailedComponent } from './components/login-failed/login-failed.component';
 import { RegisterNewUserComponent } from './components/register-new-user/register-new-user.component';
+import { FilteringPanelComponent } from './components/filtering-panel/filtering-panel.component';
 
 // import components from './pages';
 import { SharedModule } from './shared/shared-module';
@@ -36,6 +36,7 @@ import { authInterceptorProviders } from './auth-interceptor';
 import { KasseComponent } from './components/kasse/kasse.component';
 import { ErrorComponent } from './error/error.component';
 import { provideHttpClient } from '@angular/common/http';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -60,6 +61,8 @@ import { provideHttpClient } from '@angular/common/http';
     RegisterNewUserComponent,
     KasseComponent,
     ErrorComponent,
+    FilteringPanelComponent,
+    FooterComponent
     
   ],
   imports: [
@@ -71,7 +74,6 @@ import { provideHttpClient } from '@angular/common/http';
     //primeng modules
     ChartModule,
     InputNumberModule,
-    AccordionModule
   ],
   providers: [
     provideHttpClient(),
