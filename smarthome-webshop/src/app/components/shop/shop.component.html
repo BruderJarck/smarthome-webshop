@@ -1,8 +1,7 @@
 <div fxLayoutGap="grid" fxLayout="row grid" fxLayoutAlign="center">
-  <mat-card appearance="outlined" class="card" matRipple *ngFor="let product of products">
-    <a>
+  <mat-card fxLayout="column" appearance="outlined" class="card" matRipple *ngFor="let product of products">
       <mat-card-content
-        fxLayout="column"
+        
         class="card-content"
         routerLink="/detail/{{ product.id }}"
       >
@@ -17,9 +16,13 @@
           <h2 fxFlexOffset="5">{{ product.name }}</h2>
         </div>
         <div class="card-content text">
-          {{ product.description }}
+          {{ product.short_descriptions }}
         </div>
       </mat-card-content>
-    </a>
   </mat-card>
 </div>
+<mat-paginator fxLayoutAlign="center center" [length]="25"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25]"
+              aria-label="Select page">
+</mat-paginator>

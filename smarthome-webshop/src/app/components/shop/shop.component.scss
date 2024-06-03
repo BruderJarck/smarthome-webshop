@@ -1,14 +1,12 @@
 .card {
   width: 200px;
-  height: 250px;
-  margin: 8px;
-  a {
-    cursor: pointer;
-  }
+  height: 350px;
+  margin: 5px;
 
   .card-content {
     &.picture {
       max-height: 190px;
+      border: 0px;
     }
     &.price {
       &.wrapper {
@@ -36,6 +34,3 @@
   }
 }
 
-h2 {
-  margin: 0;
-}
