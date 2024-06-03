@@ -4,6 +4,8 @@ export interface ProductModel {
     img: File;
     description: string;
     price: number;
+    category: string
+    short_descriptions: string
   }
 
   export interface RespModel {
