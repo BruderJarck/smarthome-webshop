@@ -12,13 +12,22 @@ def upload_path(instance, filename):
 def upload_path_profile_img(instance, filename):
     return "/".join(["profile_pic", instance.username, filename]) or "/"
 
+class ProductCategoryModel(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=40)
+
+    def __str__(self) -> str:
+        return f"{self.name}"
+    
+
 class ProductModel(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
     price = models.IntegerField()
     img = models.URLField(help_text="this needs to the cloudinary url which represents the desired image")
     description = models.CharField(max_length=3000000)
-
+    category = models.ForeignKey(ProductCategoryModel, on_delete=models.CASCADE, null=True)
+    short_descriptions = models.CharField(max_length=402, blank=True, default="This is a shortdescription of a webshop product")
     def __str__(self) -> str:
         return f"{self.name}"
 
@@ -68,7 +77,3 @@ class OrderingModel(models.Model):
 
     def __str__(self) -> str:
         return f"{self.id} has status '{self.status}'"
-
-    
-# CloudinaryImage("leonski.png").build_url(width=250, height=250, gravity="faces", crop="thumb")
-# cloudinary.uploader.upload(CloudinaryImage("me.jpg").build_url(width=250, height=250, gravity="faces", crop="thumb"))

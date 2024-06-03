@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 
-from .models import ProductModel, SensorModel, SensorValueModel, OrderingModel
+from webshop_app import models
 from .fields import Base64ImageField
 
 User = get_user_model()
@@ -11,25 +11,32 @@ User = get_user_model()
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductModel
-        fields = ['id', 'name', 'price', 'img', 'description']
+        model = models.ProductModel
+        fields = ['id', 'name', 'price', 'img', 'description', 'short_descriptions', 'category' ]
 
 
 class SensorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SensorModel
+        model = models.SensorModel
         fields = ['id', 'user_id', 'location', 'name', 'ip_address']
-
 
 class SensorValueSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SensorValueModel
+        model = models.SensorValueModel
         fields = ['id', 'sensor_id', 'temp', 'pres', 'hum', 'dt']
 
 class OrderingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderingModel
+        model = models.OrderingModel
         fields = ['id', "user", "product", "status"]
+
+class ProductCategorySerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        return 
+    class Meta:
+        model = models.ProductCategoryModel
+        fields = ['name']
+    
 
 class PublicUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):

@@ -11,15 +11,15 @@ import random
 import datetime
 import webshop.settings as settings
 
-from .serializers import ProductSerializer, SensorSerializer, SensorValueSerializer, PrivateUserSerializer, PublicUserSerializer, OrderingSerializer
-from .models import ProductModel, SensorModel, SensorValueModel, OrderingModel
+from webshop_app import serializers
+from webshop_app import models
 
 User = get_user_model()
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = ProductModel.objects.all()
-    serializer_class = ProductSerializer    
+    queryset = models.ProductModel.objects.all()
+    serializer_class = serializers.ProductSerializer    
     search_fields = ['name']
     filter_backends = (filters.SearchFilter, )
 
@@ -27,14 +27,14 @@ class ProductViewSet(viewsets.ModelViewSet):
         name = request.data['name']
         img = request.data['img']
         print(name, img)
-        ProductModel.objects.create(title=name, img=img)
+        models.ProductModel.objects.create(title=name, img=img)
         return HttpResponse({'message': 'Product created'}, status=200)
 
     def put(self, request, *args, **kwargs):
         id = request.data['id']
         new_name = request.data['name']
 
-        prod = ProductModel.objects.get(pk=id)
+        prod = models.ProductModel.objects.get(pk=id)
 
         if prod.name != new_name:
             prod.name = new_name
@@ -46,22 +46,22 @@ class ProductViewSet(viewsets.ModelViewSet):
     def delete(self, request):
         id = request.data['id']
 
-        prod = ProductModel.objects.get(pk=id)
+        prod = models.ProductModel.objects.get(pk=id)
         prod.delete()
 
         return HttpResponse({'message': 'Product deleted'})
 
 class SensorViewset(viewsets.ModelViewSet):
-    queryset = SensorModel.objects.all()
-    serializer_class = SensorSerializer    
+    queryset = models.SensorModel.objects.all()
+    serializer_class = serializers.SensorSerializer    
     search_fields = ['user_id__id']
     filter_backends = (filters.SearchFilter, )
     authentication_classes = [JWTAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
 class SensorValueViewset(viewsets.ModelViewSet):
-    queryset = SensorValueModel.objects.all()
-    serializer_class = SensorValueSerializer    
+    queryset = models.SensorValueModel.objects.all()
+    serializer_class = serializers.SensorValueSerializer    
     search_fields = ['sensor_id__id']
     filter_backends = (filters.SearchFilter, )
     authentication_classes = [JWTAuthentication, ]
@@ -69,24 +69,35 @@ class SensorValueViewset(viewsets.ModelViewSet):
 
 class CustomUserViewset(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = PublicUserSerializer
+    serializer_class = serializers.PublicUserSerializer
     search_fields = ['username']
     filter_backends = (filters.SearchFilter, )
     authentication_classes = [JWTAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
 class OrderingViewSet(viewsets.ModelViewSet):
-    queryset = OrderingModel.objects.all()
-    serializer_class = OrderingSerializer
+    queryset = models.OrderingModel.objects.all()
+    serializer_class = serializers.OrderingSerializer
     search_field = ['id', 'user', 'product']
     filter_backends = (filters.SearchFilter, )
     authentication_classes = [JWTAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
+@decorators.api_view(['GET'])
+@decorators.authentication_classes([JWTAuthentication])
+@decorators.permission_classes([IsAuthenticated])
+def getCategorys(request):
+    categorys = models.ProductCategoryModel.objects.all()
+    serializer = serializers.ProductCategorySerializer(data=categorys, many=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(data=serializer.data, status=201)
+    return Response(data=serializer.data, status=400)
+
 @decorators.api_view(['POST'])
 @decorators.permission_classes([AllowAny])
 def register_new_user(request):
-    serializer = PublicUserSerializer(data=request.data)
+    serializer = serializers.PublicUserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(data=serializer.data, status=201)
@@ -95,8 +106,8 @@ def register_new_user(request):
 @decorators.api_view(['GET'])
 @decorators.permission_classes([AllowAny])
 def verifiy_user(request):
-
-    serializer = PrivateUserSerializer(data=request.data)
+    
+    serializer = serializers.PrivateUserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(data=serializer.data, status=201)
@@ -128,12 +139,12 @@ def submit_order(request):
 
     for i, product in enumerate(products):
         try:
-            product_type = ProductModel.objects.filter(name=product['name'])[0]
+            product_type = models.ProductModel.objects.filter(name=product['name'])[0]
         except IndexError:
             return Response(f"{ product } not found in db", status=500)
 
         for i in range(product.ammount):
-            new_sensor = SensorModel(
+            new_sensor = models.SensorModel(
                 user=user, 
                 product=product_type, 
                 location=location, 
@@ -145,7 +156,7 @@ def submit_order(request):
 
             # generate random test data
             for x in range(30):
-                val = SensorValueModel.objects.create(sensor=new_sensor,temp=random.randint(0,100),hum=random.randint(0,100),pres=random.randint(0,1000),dt=datetime.datetime.now())
+                val = models.SensorValueModel.objects.create(sensor=new_sensor,temp=random.randint(0,100),hum=random.randint(0,100),pres=random.randint(0,1000),dt=datetime.datetime.now())
                 val.save()
 
     send_mail(

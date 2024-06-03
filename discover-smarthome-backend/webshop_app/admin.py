@@ -3,8 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import ProductModel, SensorModel, SensorValueModel, UserProfile, OrderingModel
-
+from webshop_app import models
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -26,8 +25,9 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('username',)
 
 
-admin.site.register(ProductModel)
-admin.site.register(SensorModel)
-admin.site.register(SensorValueModel)
-admin.site.register(OrderingModel)
-admin.site.register(UserProfile, CustomUserAdmin)
+admin.site.register(models.ProductModel)
+admin.site.register(models.SensorModel)
+admin.site.register(models.SensorValueModel)
+admin.site.register(models.OrderingModel)
+admin.site.register(models.ProductCategoryModel)
+admin.site.register(models.UserProfile, CustomUserAdmin)
