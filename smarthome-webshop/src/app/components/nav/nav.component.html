@@ -1,12 +1,16 @@
-<div fxLayout="row"  fxLayoutAlign="start center" class="nav-wrapper"  >
+<div fxLayout="row" fxLayoutAlign="start center" class="nav-wrapper">
   <div>
     <a routerLink="/product-list"><img src="../../../assets/discover.png" /></a>
   </div>
 
-  <div fxFlex="grow" fxLayoutAlign="center none" class="search-bar partent">
-    <!-- <input class="search-bar child" fxFill /> -->
+  <div fxFlex="grow" class="search-bar partent">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <input placeholder="search for product name" fxFlex="grow" matInput class="search-bar child" fxFill />
+      <button style="margin: 2px" mat-mini-fab class="button" routerLink="cart">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
   </div>
-
   <div>
     <button mat-mini-fab class="button" (click)="openDialog()">
       <mat-icon>login</mat-icon>

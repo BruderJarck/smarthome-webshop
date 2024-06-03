@@ -1,8 +1,11 @@
-<!-- <div fxLayout="row" class="wrapper"> -->
-  <!-- <div fxLayout="column" fxFlex="20%">
-    <app-sidebar fxFlex="grow" class="content-container filled"></app-sidebar>
-  </div> -->
-  <div fxLayout="column" fxLayoutAlign="center center">
-    <app-shop fxFlex="grow" class="content-container shop"></app-shop>
+<div class="colorNested box" style="height: auto;">
+  <div gdAreas.xs="sidebar | content | sidebar2 | footer" gdGap="1em" gdColumns.xs="none"
+    gdAreas.sm="sidebar content | sidebar2 sidebar2 | footer footer" gdColumns.sm="50%!"
+    gdAreas.gt-sm="sidebar content sidebar2 | footer footer footer"
+    gdColumns.gt-sm="auto auto auto" gdGap.gt-sm="20px" [ngStyle]="{'max-width': 'auto'}"
+    >
+    <app-filtering-panel class="blocks two" gdArea="sidebar"></app-filtering-panel>
+    <app-shop class="blocks four" gdArea="content"> </app-shop>
+    <app-footer class="blocks five" gdArea="footer"></app-footer>
   </div>
-<!-- </div> -->
+</div>
