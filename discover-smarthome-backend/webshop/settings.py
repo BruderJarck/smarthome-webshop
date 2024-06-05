@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'webshop_app',
     'cloudinary',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
