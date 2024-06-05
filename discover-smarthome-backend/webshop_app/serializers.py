@@ -31,11 +31,9 @@ class OrderingSerializer(serializers.ModelSerializer):
         fields = ['id', "user", "product", "status"]
 
 class ProductCategorySerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        return 
     class Meta:
         model = models.ProductCategoryModel
-        fields = ['name']
+        fields = ['name', 'displayname', 'id']
     
 
 class PublicUserSerializer(serializers.ModelSerializer):
