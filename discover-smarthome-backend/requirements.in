@@ -1,0 +1,9 @@
+Django==3.2.9
+django-cors-headers
+djangorestframework
+djangorestframework-simplejwt
+django-filter
+cloudinary
+yagmail
+whitenoise
+APScheduler
