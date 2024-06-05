@@ -1,5 +1,5 @@
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets, filters
@@ -7,12 +7,15 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import decorators
+from django_filters.rest_framework import DjangoFilterBackend
+
 import random
 import datetime
 import webshop.settings as settings
 
 from webshop_app import serializers
 from webshop_app import models
+from webshop_app import filters as CustomFilters
 
 User = get_user_model()
 
@@ -20,37 +23,11 @@ User = get_user_model()
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = models.ProductModel.objects.all()
     serializer_class = serializers.ProductSerializer    
-    search_fields = ['name']
-    filter_backends = (filters.SearchFilter, )
-
-    def post(self, request, *args, **kwargs):
-        name = request.data['name']
-        img = request.data['img']
-        print(name, img)
-        models.ProductModel.objects.create(title=name, img=img)
-        return HttpResponse({'message': 'Product created'}, status=200)
-
-    def put(self, request, *args, **kwargs):
-        id = request.data['id']
-        new_name = request.data['name']
-
-        prod = models.ProductModel.objects.get(pk=id)
-
-        if prod.name != new_name:
-            prod.name = new_name
-
-        prod.save()
-
-        return HttpResponse({'message': 'Product property changed'})
-
-    def delete(self, request):
-        id = request.data['id']
-
-        prod = models.ProductModel.objects.get(pk=id)
-        prod.delete()
-
-        return HttpResponse({'message': 'Product deleted'})
-
+    lookup_field = "name"
+    filter_backends = [DjangoFilterBackend]
+    # filterset_fields  = ['category']
+    filterset_class = CustomFilters.ProductFilter
+    
 class SensorViewset(viewsets.ModelViewSet):
     queryset = models.SensorModel.objects.all()
     serializer_class = serializers.SensorSerializer    
@@ -83,16 +60,10 @@ class OrderingViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
-@decorators.api_view(['GET'])
-@decorators.authentication_classes([JWTAuthentication])
-@decorators.permission_classes([IsAuthenticated])
-def getCategorys(request):
-    categorys = models.ProductCategoryModel.objects.all()
-    serializer = serializers.ProductCategorySerializer(data=categorys, many=True)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(data=serializer.data, status=201)
-    return Response(data=serializer.data, status=400)
+class ProductCategoryViewSet(viewsets.ModelViewSet):
+    queryset = models.ProductCategoryModel.objects.all()
+    serializer_class = serializers.ProductCategorySerializer    
+    lookup_field = "name"
 
 @decorators.api_view(['POST'])
 @decorators.permission_classes([AllowAny])
