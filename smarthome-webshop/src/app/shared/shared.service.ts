@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnyObject } from 'chart.js/types/basic';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { ProductModel } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
+  producsInShop: ProductModel[] = []
   selectedProducts: any = [];
   totalAmmount: number = 0;
   loginFailed: Subject<boolean> = new Subject();

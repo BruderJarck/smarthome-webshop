@@ -13,6 +13,7 @@ router.register("sensors", views.SensorViewset)
 router.register("sensor-values", views.SensorValueViewset)
 router.register("users", views.CustomUserViewset),
 router.register("orders", views.OrderingViewSet)
+router.register("categorys", views.ProductCategoryViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -21,7 +22,6 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("register-new-user/", views.register_new_user),
     path("verify-new-user/", views.verifiy_user),
-    path("product-categorys/", views.getCategorys)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

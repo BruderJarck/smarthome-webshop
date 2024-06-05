@@ -2,15 +2,20 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Filtering
+                Filtern
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>This is the primary content of the panel.</p>
+        <span>Produkt Kategorien</span>
+        <div fxLayout="column">
+            @for (category of categorys; track category) {
+            <mat-checkbox (change)="categoryChecked($event, category)">{{category.displayname}}</mat-checkbox>
+            }
+        </div>
     </mat-expansion-panel>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Sorting
+                Sortieren
             </mat-panel-title>
         </mat-expansion-panel-header>
         <p>This is the primary content of the panel.</p>

@@ -15,6 +15,7 @@ def upload_path_profile_img(instance, filename):
 class ProductCategoryModel(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
+    displayname = models.CharField(max_length=40, blank=True)
 
     def __str__(self) -> str:
         return f"{self.name}"
