@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { AnyObject } from 'chart.js/types/basic';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { OrderModel, ProductModel } from '../models';
+import { OrderModel, ProductCategoryModel as ProductCategoryModel, ProductModel } from '../models';
 import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  products: ProductModel[] = [];
 
   constructor(private http: HttpClient, private accService: AccountService) {}
 
@@ -28,8 +27,8 @@ export class ProductService {
     return this.http.get<ProductModel[]>(this.productsURL);
   }
 
-  getProduct(id: number): Observable<ProductModel> {
-    const url = this.productsURL + id + "/";
+  getProduct(name: string): Observable<ProductModel> {
+    const url = this.productsURL + name + "/";
     return this.http.get<ProductModel>(url);
   }
 
@@ -53,11 +52,21 @@ export class ProductService {
     return this.http.get<ProductModel[]>(`${this.productsURL}?search=${term}`)
   }
 
+  filterProducts(categorys: ProductCategoryModel[]): Observable<ProductModel[]>{
+
+    const commaString = categorys.map(category =>category.name).join(",")
+    return this.http.get<ProductModel[]>(`${this.productsURL}?category=${commaString}`)
+
+  }
+
   submitOrder(userId: number, productId: number): Observable<OrderModel> {
     
     return this.http.post<OrderModel>(this.baseURL + "orders/", {
       "user": userId,
       "product": productId,
     })
+  }
+  getProductCategorys(): Observable<ProductCategoryModel[]> {
+    return this.http.get<ProductCategoryModel[]>(this.baseURL + "categorys/")
   }
 }

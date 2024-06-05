@@ -43,3 +43,9 @@ export interface ProductModel {
     user: number
     status: string
   }
+
+  export interface ProductCategoryModel {
+    id: number
+    name: string
+    displayname: string
+  }

@@ -3,7 +3,7 @@
       <mat-card-content
         
         class="card-content"
-        routerLink="/detail/{{ product.id }}"
+        routerLink="/detail/{{ product.name }}"
       >
         <img mat-card-image [src]=product.img class="card-content picture" />
         <div fxLayout="row" fxLayoutAlign="start center">
@@ -21,8 +21,3 @@
       </mat-card-content>
   </mat-card>
 </div>
-<mat-paginator fxLayoutAlign="center center" [length]="25"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25]"
-              aria-label="Select page">
-</mat-paginator>
