@@ -19,6 +19,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-form-field >
+            <mat-label>Sortierung wählen</mat-label>
             <mat-select [(ngModel)]="selectedValue" (selectionChange)="orderingChanged($event)">
                 @for (type of ordering_types; track ordering_types) {
                 <mat-option [value]="type.name">{{type.displayname}}</mat-option>
