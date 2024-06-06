@@ -2,7 +2,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters 
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -24,9 +24,10 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = models.ProductModel.objects.all()
     serializer_class = serializers.ProductSerializer    
     lookup_field = "name"
-    filter_backends = [DjangoFilterBackend]
-    # filterset_fields  = ['category']
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = CustomFilters.ProductFilter
+    ordering_fields = ['name', 'price', 'category']
+    ordering = ['name']
     
 class SensorViewset(viewsets.ModelViewSet):
     queryset = models.SensorModel.objects.all()
