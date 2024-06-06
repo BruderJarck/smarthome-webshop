@@ -20,14 +20,15 @@ from webshop_app import filters as CustomFilters
 User = get_user_model()
 
 
-class ProductViewSet(viewsets.ModelViewSet):
+class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.ProductModel.objects.all()
     serializer_class = serializers.ProductSerializer    
     lookup_field = "name"
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = CustomFilters.ProductFilter
     ordering_fields = ['name', 'price', 'category']
     ordering = ['name']
+    search_fields = ['name']
     
 class SensorViewset(viewsets.ModelViewSet):
     queryset = models.SensorModel.objects.all()
@@ -61,7 +62,7 @@ class OrderingViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
-class ProductCategoryViewSet(viewsets.ModelViewSet):
+class ProductCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.ProductCategoryModel.objects.all()
     serializer_class = serializers.ProductCategorySerializer    
     lookup_field = "name"
