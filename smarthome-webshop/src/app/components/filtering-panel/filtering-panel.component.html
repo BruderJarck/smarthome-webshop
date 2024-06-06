@@ -1,4 +1,4 @@
-<mat-accordion class="example-headers-align">
+<mat-accordion>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -18,6 +18,12 @@
                 Sortieren
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>This is the primary content of the panel.</p>
+        <mat-form-field >
+            <mat-select [(ngModel)]="selectedValue" (selectionChange)="orderingChanged($event)">
+                @for (type of ordering_types; track ordering_types) {
+                <mat-option [value]="type.name">{{type.displayname}}</mat-option>
+                }
+            </mat-select>
+          </mat-form-field>
     </mat-expansion-panel>
 </mat-accordion>
