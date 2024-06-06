@@ -49,3 +49,8 @@ export interface ProductModel {
     name: string
     displayname: string
   }
+
+  export interface OrderingTypeModel {
+    name: string
+    displayname: string
+  }
