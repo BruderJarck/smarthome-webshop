@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { OrderModel, OrderingTypeModel, ProductCategoryModel as ProductCategoryModel, ProductModel } from '../models';
 import { AccountService } from './account.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class ProductService {
   private productsURL = this.baseURL + 'products/';
   private orderParam: string = "&odering=name"
   private filterParam: string = ""
+  private searchParam: string = ""
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -34,35 +36,29 @@ export class ProductService {
     return this.http.get<ProductModel>(url);
   }
 
-  updateProduct(product: ProductModel): Observable<ProductModel> {
-    return this.http.put<ProductModel>(this.productsURL, product);
-  }
-
-  newProduct(data: FormData): Observable<ProductModel> {
-    return this.http.post<ProductModel>(this.productsURL, data);
-  }
-
-  deleteProduct(product_id: number) {
-    const url = this.productsURL + product_id;
-    return this.http.delete<ProductModel>(url);
-  }
-
   searchProducts(term: string): Observable<ProductModel[]> {
     if (!term.trim()) {
       return of([]);
     }
-    return this.http.get<ProductModel[]>(`${this.productsURL}?search=${term}`)
-  }
+    this.searchParam = `search=${term}`
+    return this.http.get<ProductModel[]>(`${this.productsURL}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
+      () => this.searchParam = "search="
+    ))
+    }
 
   filterProducts(categorys: ProductCategoryModel[]): Observable<ProductModel[]> {
     const commaString = categorys.map(category => category.name).join(",")
     this.filterParam = `category=${commaString}`
-    return this.http.get<ProductModel[]>(`${this.productsURL}?${this.filterParam}&${this.orderParam}`)
+    return this.http.get<ProductModel[]>(`${this.productsURL}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
+      () => this.searchParam = "search="
+    ))
   }
 
-  orderProducts(ordering_type: string): Observable<ProductModel[]>{
+  orderProducts(ordering_type: string): Observable<ProductModel[]> {
     this.orderParam = `ordering=${ordering_type}`
-    return this.http.get<ProductModel[]>(`${this.productsURL}?${this.filterParam}&${this.orderParam}`)
+    return this.http.get<ProductModel[]>(`${this.productsURL}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
+      () => this.searchParam = "search="
+    ))
   }
 
   submitOrder(userId: number, productId: number): Observable<OrderModel> {

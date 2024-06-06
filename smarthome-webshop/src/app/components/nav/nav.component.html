@@ -1,12 +1,12 @@
 <div fxLayout="row" fxLayoutAlign="start center" class="nav-wrapper">
   <div>
-    <a routerLink="/product-list"><img src="../../../assets/discover.png" /></a>
+    <a routerLink="/product-list" (click)="home()"><img src="../../../assets/discover.png" /></a>
   </div>
 
   <div fxFlex="grow" class="search-bar partent">
     <div fxLayout="row" fxLayoutAlign="center center">
-      <input placeholder="search for product name" fxFlex="grow" matInput class="search-bar child" fxFill />
-      <button style="margin: 2px" mat-mini-fab class="button" routerLink="cart">
+      <input [(ngModel)]="searchValue" (keydown.enter)="search()" placeholder="search for product name" fxFlex="grow" matInput class="search-bar child" fxFill />
+      <button (click)="search()" style="margin: 2px" mat-mini-fab class="button">
         <mat-icon>search</mat-icon>
       </button>
     </div>

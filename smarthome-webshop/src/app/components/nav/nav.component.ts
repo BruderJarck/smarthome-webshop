@@ -3,6 +3,8 @@ import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/account.service';
+import { ProductService } from 'src/app/shared/product.service';
+import { ProuctListService } from 'src/app/shared/prouct-list.service';
 import { SharedService } from 'src/app/shared/shared.service';
 
 export interface Chip {
@@ -15,24 +17,26 @@ export interface Chip {
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  ammount: any = 0;
+  ammount: number = 0;
+  searchValue: string = ""
 
   constructor(
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     public sharedService: SharedService,
+    public productService: ProductService,
+    public productListService: ProuctListService,
     public router: Router,
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     this.sharedService.reLogin.subscribe(
       reLoginState => {
-        if(reLoginState == true){
+        if (reLoginState == true) {
           this.openDialog()
           this.sharedService.reLogin.next(false)
         }
       }
     )
-    // this.sharedService.addProduct = 0;
     this.sharedService.productAmmount.subscribe((ammount: any) => {
       this.ammount = ammount;
     });
@@ -41,11 +45,33 @@ export class NavComponent implements OnInit {
   openDialog() {
     localStorage.setItem('routeAfterLogin', '/user')
     const dialogRef = this.dialog.open(Login);
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      // console.log(result);
-      
-    });
+  home(){
+    this.productService.getProducts().subscribe(
+      (res) => {
+        this.productListService.addProduct(res)
+      }
+    )
+  }
+
+  search() {
+    this.productService.searchProducts(this.searchValue).subscribe(
+      (res) => {
+        if (this.searchValue != "") {
+          this.productListService.clearProducts()
+          this.productListService.addProduct(res)
+        }
+        else {
+          this.productService.getProducts().subscribe(
+            (res) => {
+              this.productListService.clearProducts()
+              this.productListService.addProduct(res)
+            }
+          )
+        }
+      }
+    )
   }
 }
 
@@ -60,7 +86,7 @@ export class Login {
   hide = true;
   constructor(
     public accountService: AccountService
-  ) {}
+  ) { }
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -75,11 +101,11 @@ export class Login {
     this.accountService
       .login(this.email.value, this.password.value)
       .subscribe(
-        (res) =>{ console.log(res)}
+        (res) => { console.log(res) }
       );
   }
 
-  onLogout(){
+  onLogout() {
     this.accountService.logout()
   }
 }
