@@ -21,7 +21,7 @@ urlpatterns = [
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("register-new-user/", views.register_new_user),
-    path("verify-new-user/", views.verifiy_user),
+    path("verify-new-user/", views.verifiy_user)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

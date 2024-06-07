@@ -1,5 +1,4 @@
 from django.core.mail import send_mail
-from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets, filters 
@@ -16,6 +15,7 @@ import webshop.settings as settings
 from webshop_app import serializers
 from webshop_app import models
 from webshop_app import filters as CustomFilters
+from webshop_app import pagination
 
 User = get_user_model()
 
@@ -29,6 +29,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = ['name', 'price', 'category']
     ordering = ['name']
     search_fields = ['name']
+    pagination_class = pagination.ProductPagination
     
 class SensorViewset(viewsets.ModelViewSet):
     queryset = models.SensorModel.objects.all()
