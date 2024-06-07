@@ -17,10 +17,10 @@ export class FilteringPanelComponent {
   categorys: ProductCategoryModel[] = []
   checkedCategorys: ProductCategoryModel[] = []
   ordering_types: OrderingTypeModel[] = [
-    {displayname: 'Name Aufsteigend', name: 'name'},
-    {displayname: 'Name Absteigend', name: '-name'},
-    {displayname: 'Preis Aufsteigend', name: 'price'},
-    {displayname: 'Preis Absteigend', name: '-price'}
+    {id: 1, displayname: 'Name Aufsteigend', name: 'name'},
+    {id: 2, displayname: 'Name Absteigend', name: '-name'},
+    {id: 3, displayname: 'Preis Aufsteigend', name: 'price'},
+    {id: 4, displayname: 'Preis Absteigend', name: '-price'}
   ]
   selectedValue: string = ""
 
@@ -46,7 +46,7 @@ export class FilteringPanelComponent {
     this.productService.filterProducts(this.checkedCategorys).subscribe(
       (res) => {
         this.productListService.clearProducts()
-        this.productListService.addProduct(res)
+        this.productListService.addProduct(res.results)
       }
     )
   }
@@ -55,7 +55,7 @@ export class FilteringPanelComponent {
     this.productService.orderProducts(this.selectedValue).subscribe(
       (res) => {
         this.productListService.clearProducts()
-        this.productListService.addProduct(res)
+        this.productListService.addProduct(res.results)
       }
     )
   }

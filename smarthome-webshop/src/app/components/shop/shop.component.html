@@ -1,23 +1,23 @@
 <div fxLayoutGap="grid" fxLayout="row grid" fxLayoutAlign="center">
   <mat-card fxLayout="column" appearance="outlined" class="card" matRipple *ngFor="let product of products">
-      <mat-card-content
-        
-        class="card-content"
-        routerLink="/detail/{{ product.name }}"
-      >
-        <img mat-card-image [src]=product.img class="card-content picture" />
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <div fxLayout="row" class="card-content price wrapper">
-            <div class="card-content price main">{{ product.price }}</div>
-            <div class="card-content price upper" fxLayoutAlign="start start">
-              99€
-            </div>
+    <mat-card-content class="card-content" routerLink="/detail/{{ product.name }}">
+      <img mat-card-image [src]=product.img class="card-content picture" />
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="row" class="card-content price wrapper">
+          <div class="card-content price main">{{ product.price }}</div>
+          <div class="card-content price upper" fxLayoutAlign="start start">
+            99€
           </div>
-          <h2 fxFlexOffset="5">{{ product.name }}</h2>
         </div>
-        <div class="card-content text">
-          {{ product.short_descriptions }}
-        </div>
-      </mat-card-content>
+        <h2 fxFlexOffset="5">{{ product.name }}</h2>
+      </div>
+      <div class="card-content text">
+        {{ product.short_descriptions }}
+      </div>
+    </mat-card-content>
   </mat-card>
 </div>
+
+<mat-paginator fxLayoutAlign="center center" [length]="totalProductAmount"
+  [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)" aria-label="Select page">
+</mat-paginator>

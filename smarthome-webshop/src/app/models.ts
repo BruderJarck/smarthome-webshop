@@ -1,3 +1,4 @@
+
 export interface ProductModel {
     id: number;
     name: string;
@@ -6,6 +7,12 @@ export interface ProductModel {
     price: number;
     category: string
     short_descriptions: string
+  }
+  export interface PaginatedProductModel{
+    count: number
+    next: string
+    previous: string
+    results: ProductModel[]
   }
 
   export interface RespModel {
@@ -51,6 +58,11 @@ export interface ProductModel {
   }
 
   export interface OrderingTypeModel {
+    id: number
     name: string
     displayname: string
+  }
+
+  export interface TotalCountModel {
+    total_count: number
   }

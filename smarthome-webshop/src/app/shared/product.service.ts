@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AnyObject } from 'chart.js/types/basic';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { OrderModel, OrderingTypeModel, ProductCategoryModel as ProductCategoryModel, ProductModel } from '../models';
+import { OrderModel, PaginatedProductModel, ProductCategoryModel as ProductCategoryModel, ProductModel, TotalCountModel } from '../models';
 import { AccountService } from './account.service';
 import { tap } from 'rxjs/operators';
 
@@ -16,9 +16,13 @@ export class ProductService {
 
   private baseURL = environment.baseURL
   private productsURL = this.baseURL + 'products/';
-  private orderParam: string = "&odering=name"
-  private filterParam: string = ""
-  private searchParam: string = ""
+  private orderParam: string = "odering=name"
+  private filterParam: string = "category="
+  private searchParam: string = "search="
+  private limitParam: number = 0
+  private offsetParam: number = 0
+  private defaultLimitParam: number = 5
+  private defaultOffsetParam: number = 0
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,8 +31,20 @@ export class ProductService {
     }),
   };
 
-  getProducts(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>(this.productsURL);
+  getProducts(next?: string, limit?:number ): Observable<PaginatedProductModel> {
+    if(limit && next){
+      next = next.replace(/limit=(\d+)/, `limit=${limit}`)
+    }
+    var url = ""
+    if (next) {
+      url = next
+    }
+    else {
+      url = this.productsURL
+    }
+    return this.http.get<PaginatedProductModel>(`${url}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
+      () => this.searchParam = "search="
+    ))
   }
 
   getProduct(name: string): Observable<ProductModel> {
@@ -36,27 +52,44 @@ export class ProductService {
     return this.http.get<ProductModel>(url);
   }
 
-  searchProducts(term: string): Observable<ProductModel[]> {
+  getTotalProductCount(): Observable<TotalCountModel> {
+    return this.http.get<TotalCountModel>(this.baseURL + "total-count/");
+  }
+
+  searchProducts(term: string, next?: string): Observable<PaginatedProductModel> {
     if (!term.trim()) {
-      return of([]);
+      return of();
     }
     this.searchParam = `search=${term}`
-    return this.http.get<ProductModel[]>(`${this.productsURL}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
-      () => this.searchParam = "search="
-    ))
-    }
+    return this.getProducts(next = next)
 
-  filterProducts(categorys: ProductCategoryModel[]): Observable<ProductModel[]> {
+  }
+
+  filterProducts(categorys: ProductCategoryModel[], next?: string): Observable<PaginatedProductModel> {
     const commaString = categorys.map(category => category.name).join(",")
     this.filterParam = `category=${commaString}`
-    return this.http.get<ProductModel[]>(`${this.productsURL}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
+    var url = ""
+    if (next) {
+      url = next
+    }
+    else {
+      url = this.productsURL
+    }
+    return this.http.get<PaginatedProductModel>(`${url}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
       () => this.searchParam = "search="
     ))
   }
 
-  orderProducts(ordering_type: string): Observable<ProductModel[]> {
+  orderProducts(ordering_type: string, next?: string): Observable<PaginatedProductModel> {
     this.orderParam = `ordering=${ordering_type}`
-    return this.http.get<ProductModel[]>(`${this.productsURL}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
+    var url = ""
+    if (next) {
+      url = next
+    }
+    else {
+      url = this.productsURL
+    }
+    return this.http.get<PaginatedProductModel>(`${url}?${this.filterParam}&${this.orderParam}&${this.searchParam}`).pipe(tap(
       () => this.searchParam = "search="
     ))
   }
