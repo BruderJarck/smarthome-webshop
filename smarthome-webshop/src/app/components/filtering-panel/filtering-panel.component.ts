@@ -43,20 +43,10 @@ export class FilteringPanelComponent {
     else {
       this.checkedCategorys = this.checkedCategorys.filter(cat => cat.id !== category.id);
     }
-    this.productService.filterProducts(this.checkedCategorys).subscribe(
-      (res) => {
-        this.productListService.clearProducts()
-        this.productListService.addProduct(res.results)
-      }
-    )
+    this.productService.filterProducts(this.checkedCategorys).subscribe()
   }
 
   orderingChanged(event:any){
-    this.productService.orderProducts(this.selectedValue).subscribe(
-      (res) => {
-        this.productListService.clearProducts()
-        this.productListService.addProduct(res.results)
-      }
-    )
+    this.productService.orderProducts(this.selectedValue).subscribe()
   }
 }

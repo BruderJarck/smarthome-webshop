@@ -48,13 +48,10 @@ export class NavComponent implements OnInit {
     localStorage.setItem('routeAfterLogin', '/user')
     const dialogRef = this.dialog.open(Login);
   }
-
   home(){
-    this.productService.getProducts().subscribe(
-      (res) => {
-        this.productListService.addProduct(res.results)
-      }
-    )
+    this.searchValue = ""
+    this.productService.searchParam = ""
+    this.productService.getProducts(5).subscribe()
   }
 
   search() {
@@ -65,12 +62,7 @@ export class NavComponent implements OnInit {
           this.productListService.addProduct(res.results)
         }
         else {
-          this.productService.getProducts().subscribe(
-            (res) => {
-              this.productListService.clearProducts()
-              this.productListService.addProduct(res.results)
-            }
-          )
+          this.productService.getProducts(5).subscribe()
         }
       }
     )
