@@ -6,3 +6,5 @@ django-filter
 cloudinary
 yagmail
 whitenoise
+gunicorn
+psycopg2

@@ -37,12 +37,18 @@ djangorestframework==3.12.4
     #   djangorestframework-simplejwt
 djangorestframework-simplejwt==5.0.0
     # via -r requirements.in
+gunicorn==22.0.0
+    # via -r requirements.in
 idna==3.3
     # via requests
 lxml==4.7.1
     # via premailer
+packaging==24.1
+    # via gunicorn
 premailer==3.10.0
     # via yagmail
+psycopg2==2.9.9
+    # via -r requirements.in
 pyjwt==2.3.0
     # via djangorestframework-simplejwt
 pytz==2021.3
