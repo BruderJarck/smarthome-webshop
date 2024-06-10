@@ -9,3 +9,4 @@
 - [ ] CI/CD github actions
 - [ ] release heroku
 - [ ] fix login/userpage
+- [ ] fix theming
