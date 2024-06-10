@@ -9,10 +9,11 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").s
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'daib5d5ht67295',
-        'USER': 'qcvactoiyjhbkr',
-        'PASSWORD': '26803fa54149644d167c5316d45162cb97aeb018961a27a998c117a01efb4175',
-        'HOST': 'ec2-54-157-113-118.compute-1.amazonaws.com'
+        'NAME': 'koyebdb',
+        'USER': 'koyeb-adm',
+        'PASSWORD': '8DZgc1dChGpM',
+        'HOST': 'ep-mute-truth-a2mcu1is.eu-central-1.pg.koyeb.app',
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 
