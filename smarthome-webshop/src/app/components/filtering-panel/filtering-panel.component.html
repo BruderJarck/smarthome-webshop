@@ -7,7 +7,7 @@
         </mat-expansion-panel-header>
         <span>Produkt Kategorien</span>
         <div fxLayout="column">
-            @for (category of categorys; track category) {
+            @for (category of categorys; track category.id) {
             <mat-checkbox (change)="categoryChecked($event, category)">{{category.displayname}}</mat-checkbox>
             }
         </div>
@@ -21,7 +21,7 @@
         <mat-form-field >
             <mat-label>Sortierung wählen</mat-label>
             <mat-select [(ngModel)]="selectedValue" (selectionChange)="orderingChanged($event)">
-                @for (type of ordering_types; track ordering_types) {
+                @for (type of ordering_types; track type.id) {
                 <mat-option [value]="type.name">{{type.displayname}}</mat-option>
                 }
             </mat-select>
