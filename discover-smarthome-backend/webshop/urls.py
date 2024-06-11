@@ -3,8 +3,8 @@ from django.conf.urls.static import static
 from django.urls import include, path
 from django.contrib import admin
 
+from webshop_app import urls
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("backend/", include('webshop_app.urls'))    
 ]
 
