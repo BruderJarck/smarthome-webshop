@@ -5,8 +5,6 @@ DEBUG = False
 # ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").split(",")
 
-BASE_URL = "https://mild-eadie-discover-c8cdf36b.koyeb.app/backend/"
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

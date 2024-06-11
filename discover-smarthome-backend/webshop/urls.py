@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.conf import settings, url
 from django.conf.urls.static import static
 from django.contrib import admin, auth
 from django.contrib.auth.models import User
@@ -16,12 +16,27 @@ router.register("orders", views.OrderingViewSet)
 router.register("categorys", views.ProductCategoryViewSet)
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include(router.urls)),
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("register-new-user/", views.register_new_user),
-    path("verify-new-user/", views.verifiy_user)
+    path(
+        "backend/",
+        include(
+            [
+                path("admin/", admin.site.urls),
+                path("", include(router.urls)),
+                path(
+                    "api/token/",
+                    TokenObtainPairView.as_view(),
+                    name="token_obtain_pair",
+                ),
+                path(
+                    "api/token/refresh/",
+                    TokenRefreshView.as_view(),
+                    name="token_refresh",
+                ),
+                path("register-new-user/", views.register_new_user),
+                path("verify-new-user/", views.verifiy_user),
+            ]
+        ),
+    )
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
