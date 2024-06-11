@@ -2,7 +2,7 @@
   "name": "smarthome-frontend",
   "version": "0.0.0",
   "engines": {
-    "node": "18.20.3",
+    "node": "22.2.0",
     "npm": "10.7.0"
   },
   "scripts": {
