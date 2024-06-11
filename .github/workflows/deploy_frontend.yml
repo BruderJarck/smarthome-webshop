@@ -16,15 +16,21 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build ./smarthome-webshop --file Dockerfile --tag bruderjarck/smarthome-frontend
+      
     - name: Login to docerhub
       env:
         DOCKER_HUB_API_KEY: ${{ secrets.DOCKER_HUB_API_KEY }}
       run: docker login -u "bruderjarck" -p "$DOCKER_HUB_API_KEY" docker.io
+      
     - name: Upload to docerhub
       run: docker push bruderjarck/smarthome-frontend:latest
-    - uses: koyeb/actions/deploy@v1
+      
+    - name: Install and configure the Koyeb CLI
+      uses: koyeb-community/install-koyeb-cli@v2
       with:
-          service_account_token: ${{ secrets.KOYEB_API_KEY }}
-          app_name: mild-eadie
-          image: bruderjarck/smarthome-frontend
-          region: Frankfurt
+          api_token: "${{ secrets.KOYEB_API_KEY }}"
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          
+    - name: Deploy to Koyeb
+      run: koyeb service redeploy mild-eadie/smarthome-frontend
+      
