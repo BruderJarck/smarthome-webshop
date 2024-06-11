@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: 'https://smarthome-pythonska.herokuapp.com/'
+  baseURL: 'https://mild-eadie-discover-c8cdf36b.koyeb.app/'
 };
