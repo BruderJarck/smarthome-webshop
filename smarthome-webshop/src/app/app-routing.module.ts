@@ -13,7 +13,8 @@ import { KasseComponent } from './components/kasse/kasse.component';
 import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
-  // {path: '', redirectTo: '/product-list', pathMatch: 'full' },
+  {path: '', redirectTo: 'webshop/product-list', pathMatch: 'full' },
+  {path: 'webshop', redirectTo: 'webshop/product-list', pathMatch: 'full' },
   {
     path: 'webshop',
     component: MainPageComponent,
