@@ -1,41 +1,11 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.urls import include, path
-from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from webshop_app import views
-
-router = routers.DefaultRouter()
-router.register("products", views.ProductViewSet)
-router.register("sensors", views.SensorViewset)
-router.register("sensor-values", views.SensorValueViewset)
-router.register("users", views.CustomUserViewset),
-router.register("orders", views.OrderingViewSet)
-router.register("categorys", views.ProductCategoryViewSet)
+from django.contrib import admin
 
 urlpatterns = [
-    path(
-        "backend/",
-        include(
-            [
-                path("admin/", admin.site.urls),
-                path("", include(router.urls)),
-                path(
-                    "api/token/",
-                    TokenObtainPairView.as_view(),
-                    name="token_obtain_pair",
-                ),
-                path(
-                    "api/token/refresh/",
-                    TokenRefreshView.as_view(),
-                    name="token_refresh",
-                ),
-                path("register-new-user/", views.register_new_user),
-                path("verify-new-user/", views.verifiy_user),
-            ]
-        ),
-    )
+    path("admin/", admin.site.urls),
+    path("backend/", include('webshop_app.urls'))    
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
