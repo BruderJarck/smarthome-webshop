@@ -15,7 +15,7 @@ import { ErrorComponent } from './error/error.component';
 const routes: Routes = [
   // {path: '', redirectTo: '/product-list', pathMatch: 'full' },
   {
-    path: '',
+    path: 'webshop',
     component: MainPageComponent,
     children: [
       { path: 'cart', component: CartComponent },
