@@ -37,6 +37,7 @@ import { KasseComponent } from './components/kasse/kasse.component';
 import { ErrorComponent } from './error/error.component';
 import { provideHttpClient } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
+import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { FooterComponent } from './components/footer/footer.component';
     KasseComponent,
     ErrorComponent,
     FilteringPanelComponent,
-    FooterComponent
+    FooterComponent,
+    SortingPanelComponent
     
   ],
   imports: [
