@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill" style="padding-top:16px">
+    <mat-label>Sortierung </mat-label>
+    <mat-select [(ngModel)]="selectedValue" (selectionChange)="orderingChanged($event)">
+        @for (type of ordering_types; track type.id) {
+        <mat-option [value]="type.name">{{type.displayname}}</mat-option>
+        }
+    </mat-select>
+</mat-form-field>
