@@ -30,14 +30,17 @@ img {
 
 .card-content {
   height: 20px;
+
   &.price {
     &.wrapper {
       padding-bottom: 4px;
     }
+
     &.main {
       font-weight: 500;
       font-size: 18px;
     }
+
     &.upper {
       height: 20px;
       font-size: 12px;
@@ -45,11 +48,13 @@ img {
       padding-left: 1px;
       font-weight: 450;
     }
+
     &.text {
       padding-right: 6px;
       font-weight: 400;
       font-size: 16px;
     }
+
     &.description {
       padding-left: 6px;
       padding-bottom: 8px;
@@ -58,6 +63,7 @@ img {
     }
   }
 }
+
 // @media only screen and (max-width: 400px) {
 //   .card-button{
 //     button{
@@ -68,6 +74,7 @@ img {
 .card-button {
   padding: 0 16px;
   margin-bottom: 16px;
+
   button {
     display: inline-block;
     text-align: center;
@@ -75,6 +82,7 @@ img {
     background-color: #fbac09;
     color: black;
   }
+
   p {
     font-size: 12px;
     line-height: 12px;
@@ -88,13 +96,16 @@ img {
     text-decoration: none;
     color: black;
   }
+
   a:hover {
     text-decoration: underline;
     color: black;
   }
+
   a:active {
     color: black;
   }
+
   .material-icons {
     font-size: 17px;
   }

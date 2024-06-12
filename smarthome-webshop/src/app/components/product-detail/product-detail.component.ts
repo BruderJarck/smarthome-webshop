@@ -10,7 +10,7 @@ import { ProductModel } from '../../models';
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-  @Input() product?: ProductModel;
+  @Input() product?: ProductModel
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +27,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onCollect() {
-    this.sharedService.addProduct(this.product);
-    this.sharedService.calcTotalAmmount();
+    if(this.product){
+      this.sharedService.addProduct(this.product);
+      this.sharedService.calcTotalAmmount();
+    }
+    
   }
 }

@@ -13,8 +13,8 @@ import { KasseComponent } from './components/kasse/kasse.component';
 import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'webshop/product-list', pathMatch: 'full' },
-  {path: 'webshop', redirectTo: 'webshop/product-list', pathMatch: 'full' },
+  { path: '', redirectTo: 'webshop/product-list', pathMatch: 'full' },
+  { path: 'webshop', redirectTo: 'webshop/product-list', pathMatch: 'full' },
   {
     path: 'webshop',
     component: MainPageComponent,
@@ -23,11 +23,11 @@ const routes: Routes = [
       { path: 'product-list', component: ProductListComponent },
       { path: 'detail/:id', component: ProductDetailComponent },
       { path: 'register', component: RegisterNewUserComponent },
-      { path: 'checkout', component: KasseComponent},
-      { path: 'error', component: ErrorComponent},
-      { path: 'sensors', component: SensorDataComponent},
-      { 
-        path: 'user', 
+      { path: 'checkout', component: KasseComponent },
+      { path: 'error', component: ErrorComponent },
+      { path: 'sensors', component: SensorDataComponent },
+      {
+        path: 'user',
         component: UserpageComponent,
         canActivate: [AccountService],
         children: [
@@ -42,4 +42,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

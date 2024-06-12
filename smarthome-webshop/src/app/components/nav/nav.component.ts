@@ -17,11 +17,11 @@ export interface Chip {
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  ammount: number = 0;
+  ammount: string = "0";
   searchValue: string = ""
 
   defaultPageSize: number = 5
-  
+
   constructor(
     public dialog: MatDialog,
     public sharedService: SharedService,
@@ -39,7 +39,7 @@ export class NavComponent implements OnInit {
         }
       }
     )
-    this.sharedService.productAmmount.subscribe((ammount: any) => {
+    this.sharedService.productAmmount.subscribe((ammount: string) => {
       this.ammount = ammount;
     });
   }
@@ -48,7 +48,7 @@ export class NavComponent implements OnInit {
     localStorage.setItem('routeAfterLogin', '/user')
     const dialogRef = this.dialog.open(Login);
   }
-  home(){
+  home() {
     this.searchValue = ""
     this.productService.searchParam = ""
     this.productService.getProducts(5).subscribe()

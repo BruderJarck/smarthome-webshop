@@ -20,7 +20,7 @@ export class ProductService {
   public searchParam: string = ""
   public currentPageSize: number = 5
 
-  private productListCountSource: BehaviorSubject<Number>= new BehaviorSubject<Number>(0);
+  private productListCountSource: BehaviorSubject<Number> = new BehaviorSubject<Number>(0);
   productListCount = this.productListCountSource.asObservable();
 
   httpOptions = {
@@ -34,20 +34,20 @@ export class ProductService {
     this.productListCountSource.next(value);
   }
 
-  getProducts(limit:number, offset?: number): Observable<PaginatedProductModel> {
-    var offsetParam:string = ""
-    if(offset){
+  getProducts(limit: number, offset?: number): Observable<PaginatedProductModel> {
+    var offsetParam: string = ""
+    if (offset) {
       offsetParam = "&offset=" + offset
     }
     const paginationUrl = `${this.productsURL}?limit=${limit}${offsetParam}`
     const filterUrl = this.filterParam + this.orderParam + this.searchParam
-    const url = paginationUrl + filterUrl 
-    
+    const url = paginationUrl + filterUrl
+
     return this.http.get<PaginatedProductModel>(url).pipe(tap(
       (res) => {
         this.productListCountSource.next(res.count)
         this.productListService.addProduct(res.results)
-        
+
       }
     ))
   }
@@ -66,7 +66,7 @@ export class ProductService {
     if (!term.trim()) {
       return of();
     }
-    if(term==""){
+    if (term == "") {
       this.searchParam = ""
     }
     else {
@@ -77,10 +77,10 @@ export class ProductService {
 
   filterProducts(categorys: ProductCategoryModel[], next?: string): Observable<PaginatedProductModel> {
     const commaString = categorys.map(category => category.name).join(",")
-    if(commaString != ""){
+    if (commaString != "") {
       this.filterParam = `&category=${commaString}`
     }
-    
+
     return this.getProducts(this.currentPageSize)
   }
 

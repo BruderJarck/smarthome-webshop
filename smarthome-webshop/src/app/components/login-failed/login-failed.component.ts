@@ -13,7 +13,7 @@ export class LoginFailedComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  reLogin(){
+  reLogin() {
     this.sharedSerice.reLogin.next(true)
   }
 

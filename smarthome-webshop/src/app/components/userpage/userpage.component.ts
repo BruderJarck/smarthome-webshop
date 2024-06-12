@@ -9,7 +9,7 @@ import { AccountService } from 'src/app/shared/account.service';
 export class UserpageComponent implements OnInit {
   constructor(
     private accountservice: AccountService,
-  ) {}
+  ) { }
 
   profile_picture_path: string = "/assets/default_avatar.png"
   username: String = "no user"
@@ -18,15 +18,15 @@ export class UserpageComponent implements OnInit {
     this.username = localStorage.getItem('username') || "no username"
     this.email = localStorage.getItem('email') || "no email"
 
-    if(localStorage.getItem('profile_pic') != 'null'){
+    if (localStorage.getItem('profile_pic') != 'null') {
       this.profile_picture_path = localStorage.getItem('profile_pic') || "/assets/default_avatar.png"
     }
-    else{
+    else {
       this.profile_picture_path = "/assets/default_avatar.png"
     }
-    
+
   }
-  logout(){
+  logout() {
     this.accountservice.logout()
   }
 }

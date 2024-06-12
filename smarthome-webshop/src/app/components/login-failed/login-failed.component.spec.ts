@@ -8,9 +8,9 @@ describe('LoginFailedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginFailedComponent ]
+      declarations: [LoginFailedComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,8 +1,8 @@
 <mat-card class="card">
     <span>Produkt Kategorien</span>
-        <div fxLayout="column">
-            @for (category of categorys; track category.id) {
-            <mat-checkbox (change)="categoryChecked($event, category)">{{category.displayname}}</mat-checkbox>
-            }
-        </div>
+    <div fxLayout="column">
+        @for (category of categorys; track category.id) {
+        <mat-checkbox (change)="categoryChecked($event, category)">{{category.displayname}}</mat-checkbox>
+        }
+    </div>
 </mat-card>

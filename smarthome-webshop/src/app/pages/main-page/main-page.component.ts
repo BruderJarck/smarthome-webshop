@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginFailedComponent } from 'src/app/components/login-failed/login-failed.component';
 import { SharedService } from 'src/app/shared/shared.service';
 
@@ -14,14 +14,14 @@ export class MainPageComponent implements OnInit {
   constructor(
     public sharedService: SharedService,
     private snackBar: MatSnackBar,
-    ) {}
-    
+  ) { }
+
 
   ngOnInit(): void {
     this.sharedService.calcTotalAmmount();
     this.sharedService.loginFailed.subscribe(
       failState => {
-        if(failState == true){
+        if (failState == true) {
           this.openLoginFailedSnackBar()
           this.sharedService.loginFailed.next(false)
         }

@@ -8,7 +8,7 @@ import { ProductModel } from '../models';
 export class ProuctListService {
 
   constructor() { }
-  
+
   private productsSubject: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
   public products: Observable<ProductModel[]> = this.productsSubject.asObservable();
 

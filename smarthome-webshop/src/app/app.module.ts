@@ -65,7 +65,7 @@ import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.
     FilteringPanelComponent,
     FooterComponent,
     SortingPanelComponent
-    
+
   ],
   imports: [
     RouterModule,
@@ -86,4 +86,4 @@ import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

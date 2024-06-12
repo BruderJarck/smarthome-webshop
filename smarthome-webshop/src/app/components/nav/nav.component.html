@@ -1,23 +1,24 @@
-<div fxLayout="row" fxLayoutAlign="start center" class="nav-wrapper">
-  <div>
+<div fxLayout.lt-sm="row wrap" fxLayoutAlign.lt-sm="center center" fxLayoutAlign="start center" class="nav-wrapper">
+  <div fxFlexOrder.lt-sm="1">
     <a routerLink="/webshop/product-list" (click)="home()"><img src="../../../assets/discover.png" /></a>
   </div>
 
-  <div fxFlex="grow" class="search-bar partent">
-    <div fxLayout.lg="row wrap"  fxLayoutAlign="center center">
-      <input [(ngModel)]="searchValue" (keydown.enter)="search()" placeholder="suche nach produkt Namen" fxFlex="grow" matInput class="search-bar child" fxFill />
+  <div fxFlexOrder.lt-sm="4" fxFlex="grow" class="search-bar partent">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <input [(ngModel)]="searchValue" (keydown.enter)="search()" placeholder="suche nach produkt Namen" fxFlex="grow"
+        matInput class="search-bar child" fxFill />
       <button (click)="search()" style="margin: 2px" mat-mini-fab class="button">
         <mat-icon>search</mat-icon>
       </button>
     </div>
   </div>
-  <div>
+  <div fxFlexOrder.lt-sm="2">
     <button mat-mini-fab class="button" (click)="openDialog()">
       <mat-icon>login</mat-icon>
     </button>
   </div>
 
-  <div style="margin-left: 2px">
+  <div fxFlexOrder.lt-sm="3" style="margin-left: 2px">
     <button mat-mini-fab class="button" routerLink="cart" [matBadge]="ammount">
       <mat-icon>shopping_cart</mat-icon>
     </button>
