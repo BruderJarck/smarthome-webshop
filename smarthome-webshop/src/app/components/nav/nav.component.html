@@ -1,10 +1,10 @@
 <div fxLayout="row" fxLayoutAlign="start center" class="nav-wrapper">
   <div>
-    <a routerLink="/product-list" (click)="home()"><img src="../../../assets/discover.png" /></a>
+    <a routerLink="/webshop/product-list" (click)="home()"><img src="../../../assets/discover.png" /></a>
   </div>
 
   <div fxFlex="grow" class="search-bar partent">
-    <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout.lg="row wrap"  fxLayoutAlign="center center">
       <input [(ngModel)]="searchValue" (keydown.enter)="search()" placeholder="suche nach produkt Namen" fxFlex="grow" matInput class="search-bar child" fxFill />
       <button (click)="search()" style="margin: 2px" mat-mini-fab class="button">
         <mat-icon>search</mat-icon>

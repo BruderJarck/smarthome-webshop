@@ -1,11 +1,13 @@
 <div class="colorNested box" style="height: auto;">
   <div gdAreas.xs="sidebar | content | sidebar2 | footer" gdGap="1em" gdColumns.xs="none"
     gdAreas.sm="sidebar content | sidebar2 sidebar2 | footer footer" gdColumns.sm="50%!"
-    gdAreas.gt-sm="sidebar content sidebar2 | footer footer footer"
-    gdColumns.gt-sm="auto auto auto" gdGap.gt-sm="20px" [ngStyle]="{'max-width': 'auto'}"
-    >
+    gdAreas.gt-sm="sidebar content sidebar2 | footer footer footer" gdColumns.gt-sm="auto auto auto" gdGap.gt-sm="20px"
+    [ngStyle]="{'max-width': 'auto'}">
     <app-filtering-panel class="blocks two" gdArea="sidebar"></app-filtering-panel>
-    <app-shop style="min-height: 90vh;" class="blocks four" gdArea="content"> </app-shop>
+    <div fxLayout="column" fxLayoutAlign="space-around end">
+      <app-sorting-panel></app-sorting-panel>
+      <app-shop style="min-height: 65vh;" class="blocks four" gdArea="content"> </app-shop>
+    </div>
     <app-footer class="blocks five" gdArea="footer"></app-footer>
   </div>
 </div>
