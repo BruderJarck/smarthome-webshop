@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/shared/product.service';
 import { SharedService } from 'src/app/shared/shared.service';
@@ -11,8 +12,10 @@ import { ProductModel } from '../../models';
 })
 export class ProductDetailComponent implements OnInit {
   @Input() product?: ProductModel
+  description?: SafeHtml
 
   constructor(
+    private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private productService: ProductService,
     public sharedService: SharedService
@@ -21,8 +24,11 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     const name = this.route.snapshot.paramMap.get('id') || ""
     this.productService.getProduct(name).subscribe(
-      (res) => (this.product = res),
-      (err) => console.log(err)
+      (res) => 
+        {
+          this.description = this.sanitizer.bypassSecurityTrustHtml(res.description)
+          this.product = res
+        }
     );
   }
 
