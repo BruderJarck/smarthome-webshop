@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
   ammount: string = "0";
   searchValue: string = ""
 
-  defaultPageSize: number = 5
+  pageSize: number = 5
 
   constructor(
     public dialog: MatDialog,
@@ -42,6 +42,7 @@ export class NavComponent implements OnInit {
     this.sharedService.productAmmount.subscribe((ammount: string) => {
       this.ammount = ammount;
     });
+    this.productService.currentPageSize.subscribe(size => this.pageSize = size)
   }
 
   openDialog() {
@@ -51,7 +52,7 @@ export class NavComponent implements OnInit {
   home() {
     this.searchValue = ""
     this.productService.searchParam = ""
-    this.productService.getProducts(5).subscribe()
+    this.productService.getProducts(this.pageSize).subscribe()
   }
 
   search() {
@@ -62,7 +63,7 @@ export class NavComponent implements OnInit {
           this.productListService.addProduct(res.results)
         }
         else {
-          this.productService.getProducts(5).subscribe()
+          this.productService.getProducts(this.pageSize).subscribe()
         }
       }
     )

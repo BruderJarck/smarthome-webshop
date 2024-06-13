@@ -14,10 +14,11 @@ export class ShopComponent implements OnInit {
 
   products: ProductModel[] = [];
   pageSizeOptions: number[] = [5, 10]
+  pageSize: number = 5
   totalProductAmount: Number = 10
 
   ngOnInit(): void {
-    this.productService.getProducts(5).subscribe()
+    this.productService.getProducts(this.pageSize).subscribe(() => console.log(this.pageSize))
 
     this.productListService.products.subscribe(products => {
       this.products = products;
@@ -26,11 +27,17 @@ export class ShopComponent implements OnInit {
     this.productService.productListCount.subscribe(count => {
       this.totalProductAmount = count
     })
+
+    this.productService.currentPageSize.subscribe(size => {
+      this.pageSize = size
+    })
+
   }
 
   onPageChange(event: any) {
-    this.productService.currentPageSize = event.pageSize
-    const offset = event.pageIndex * this.productService.currentPageSize
+    this.pageSize = event.pageSize
+    this.productService.currentPageSiteSource.next(event.pageSize) 
+    const offset = event.pageIndex * this.pageSize
     this.productService.getProducts(event.pageSize, offset).subscribe()
   }
 }

@@ -18,7 +18,10 @@ export class ProductService {
   private orderParam: string = ""
   private filterParam: string = ""
   public searchParam: string = ""
-  public currentPageSize: number = 5
+  private currentPageSizelocal: number = 5
+
+  public currentPageSiteSource: BehaviorSubject<number> = new BehaviorSubject<number>(5);
+  currentPageSize = this.currentPageSiteSource.asObservable();
 
   private productListCountSource: BehaviorSubject<Number> = new BehaviorSubject<Number>(0);
   productListCount = this.productListCountSource.asObservable();
@@ -29,6 +32,13 @@ export class ProductService {
       Authorization: 'Bearer ' + localStorage.getItem('access'),
     }),
   };
+
+  ngOnInit(){
+    this.currentPageSize.subscribe(
+      pageSize => {
+        this.currentPageSizelocal = pageSize
+      })
+  }
 
   setProductListCount(value: number): void {
     this.productListCountSource.next(value);
@@ -72,7 +82,7 @@ export class ProductService {
     else {
       this.searchParam = `&search=${term}`
     }
-    return this.getProducts(this.currentPageSize)
+    return this.getProducts(this.currentPageSizelocal)
   }
 
   filterProducts(categorys: ProductCategoryModel[], next?: string): Observable<PaginatedProductModel> {
@@ -81,12 +91,12 @@ export class ProductService {
       this.filterParam = `&category=${commaString}`
     }
 
-    return this.getProducts(this.currentPageSize)
+    return this.getProducts(this.currentPageSizelocal)
   }
 
   orderProducts(ordering_type: string, next?: string): Observable<PaginatedProductModel> {
     this.orderParam = `&ordering=${ordering_type}`
-    return this.getProducts(this.currentPageSize)
+    return this.getProducts(this.currentPageSizelocal)
   }
 
   submitOrder(userId: number, productId: number): Observable<OrderModel> {
