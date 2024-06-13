@@ -10,3 +10,4 @@
 - [ ] fix login/userpage
 - [ ] fix theming
 - [ ] fix exosed secrets in settings.py
+- [ ] make readmes presentable
