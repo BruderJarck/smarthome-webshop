@@ -17,7 +17,7 @@ import { Login, NavComponent } from './components/nav/nav.component';
 import { loginOrAsGuestDialogComponent } from './components/cart/cart.component';
 import { GuestEnterDataComponent } from './components/cart/cart.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductListComponent } from './pages/product-list/product-list.component';
 import { SensorDataComponent } from './components/sensor-data/sensor-data.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';

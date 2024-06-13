@@ -1,9 +1,10 @@
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export interface ProductModel {
   id: number;
   name: string;
   img: File;
-  description: string;
+  description: string
   price: number;
   category: string
   short_descriptions: string
