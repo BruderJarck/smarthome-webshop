@@ -1,0 +1,15 @@
+  <div 
+    class="wrapper"
+    gdAreas.xs="sidebar | content | footer"  
+    gdAreas.sm="sidebar | content | footer"
+    gdAreas.gt-sm="sidebar content | footer footer">
+    
+    <app-filtering-panel [ngStyle.gt-sm]="{'max-width': 'fit-content'}" gdArea="sidebar"></app-filtering-panel>
+    <div fxLayout="column" fxLayoutAlign="space-around start" gdArea="content">
+      <div fxLayout="column" fxLayoutAlign="space-around end">
+        <app-sorting-panel></app-sorting-panel>
+        <app-shop></app-shop>
+      </div>
+    </div>
+    <app-footer gdArea="footer"></app-footer>
+  </div>
