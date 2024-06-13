@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductListComponent } from './pages/product-list/product-list.component';
 import { SensorDataComponent } from './components/sensor-data/sensor-data.component';
 import { UserpageComponent } from './components/userpage/userpage.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
