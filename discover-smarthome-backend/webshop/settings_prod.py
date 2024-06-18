@@ -1,5 +1,5 @@
 from .settings import *
-
+import os 
 DEBUG = False
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").split(",")
@@ -9,7 +9,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'koyebdb',
         'USER': 'koyeb-adm',
-        'PASSWORD': 'Es3WgVRz6Ywx',
+        'PASSWORD': os.environ['SMARTHOME_PROD_DATABASE_PWD'],
         'HOST': 'ep-blue-mode-a2p2x3qq.eu-central-1.pg.koyeb.app',
         'OPTIONS': {'sslmode': 'require'},
     }
