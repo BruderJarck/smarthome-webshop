@@ -34,10 +34,5 @@ export class ShopComponent implements OnInit {
 
   }
 
-  onPageChange(event: any) {
-    this.pageSize = event.pageSize
-    this.productService.currentPageSiteSource.next(event.pageSize) 
-    const offset = event.pageIndex * this.pageSize
-    this.productService.getProducts(event.pageSize, offset).subscribe()
-  }
+
 }

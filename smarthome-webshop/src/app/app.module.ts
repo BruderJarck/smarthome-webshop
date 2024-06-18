@@ -38,6 +38,7 @@ import { ErrorComponent } from './error/error.component';
 import { provideHttpClient } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.component';
+import { PaginationPanelComponent } from './components/pagination-panel/pagination-panel.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.
     ErrorComponent,
     FilteringPanelComponent,
     FooterComponent,
-    SortingPanelComponent
+    SortingPanelComponent,
+    PaginationPanelComponent
 
   ],
   imports: [
