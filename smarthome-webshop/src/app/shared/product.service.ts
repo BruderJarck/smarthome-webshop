@@ -90,6 +90,9 @@ export class ProductService {
     if (commaString != "") {
       this.filterParam = `&category=${commaString}`
     }
+    else{
+      this.filterParam = ""
+    }
 
     return this.getProducts(this.currentPageSizelocal)
   }
