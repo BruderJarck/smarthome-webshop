@@ -17,11 +17,11 @@ export interface Chip {
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  ammount: number = 0;
+  ammount: string = "0";
   searchValue: string = ""
 
-  defaultPageSize: number = 5
-  
+  pageSize: number = 5
+
   constructor(
     public dialog: MatDialog,
     public sharedService: SharedService,
@@ -31,6 +31,7 @@ export class NavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.dialog.open(DiscaimerDialog)
     this.sharedService.reLogin.subscribe(
       reLoginState => {
         if (reLoginState == true) {
@@ -39,19 +40,19 @@ export class NavComponent implements OnInit {
         }
       }
     )
-    this.sharedService.productAmmount.subscribe((ammount: any) => {
+    this.sharedService.productAmmount.subscribe((ammount: string) => {
       this.ammount = ammount;
     });
+    this.productService.currentPageSize.subscribe(size => this.pageSize = size)
   }
-
   openDialog() {
     localStorage.setItem('routeAfterLogin', '/user')
     const dialogRef = this.dialog.open(Login);
   }
-  home(){
+  home() {
     this.searchValue = ""
     this.productService.searchParam = ""
-    this.productService.getProducts(5).subscribe()
+    this.productService.getProducts(this.pageSize).subscribe()
   }
 
   search() {
@@ -62,7 +63,7 @@ export class NavComponent implements OnInit {
           this.productListService.addProduct(res.results)
         }
         else {
-          this.productService.getProducts(5).subscribe()
+          this.productService.getProducts(this.pageSize).subscribe()
         }
       }
     )
@@ -102,4 +103,12 @@ export class Login {
   onLogout() {
     this.accountService.logout()
   }
+}
+
+@Component({
+  selector: 'discaimer-dialog',
+  templateUrl: 'discaimer-dialog.html',
+})
+export class DiscaimerDialog { 
+  constructor(){}
 }

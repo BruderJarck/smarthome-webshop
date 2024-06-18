@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductListComponent } from './pages/product-list/product-list.component';
 import { SensorDataComponent } from './components/sensor-data/sensor-data.component';
 import { UserpageComponent } from './components/userpage/userpage.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
@@ -13,8 +13,8 @@ import { KasseComponent } from './components/kasse/kasse.component';
 import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'webshop/product-list', pathMatch: 'full' },
-  {path: 'webshop', redirectTo: 'webshop/product-list', pathMatch: 'full' },
+  { path: '', redirectTo: 'webshop/product-list', pathMatch: 'full' },
+  { path: 'webshop', redirectTo: 'webshop/product-list', pathMatch: 'full' },
   {
     path: 'webshop',
     component: MainPageComponent,
@@ -23,11 +23,11 @@ const routes: Routes = [
       { path: 'product-list', component: ProductListComponent },
       { path: 'detail/:id', component: ProductDetailComponent },
       { path: 'register', component: RegisterNewUserComponent },
-      { path: 'checkout', component: KasseComponent},
-      { path: 'error', component: ErrorComponent},
-      { path: 'sensors', component: SensorDataComponent},
-      { 
-        path: 'user', 
+      { path: 'checkout', component: KasseComponent },
+      { path: 'error', component: ErrorComponent },
+      { path: 'sensors', component: SensorDataComponent },
+      {
+        path: 'user',
         component: UserpageComponent,
         canActivate: [AccountService],
         children: [
@@ -42,4 +42,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -8,14 +8,17 @@
       max-height: 190px;
       border: 0px;
     }
+
     &.price {
       &.wrapper {
         padding-bottom: 4px;
       }
+
       &.main {
         font-weight: 500;
         font-size: 18px;
       }
+
       &.upper {
         height: 20px;
         font-size: 12px;
@@ -24,6 +27,7 @@
         font-weight: 450;
       }
     }
+
     &.text {
       height: 40px;
       overflow: hidden;
@@ -33,4 +37,3 @@
     }
   }
 }
-

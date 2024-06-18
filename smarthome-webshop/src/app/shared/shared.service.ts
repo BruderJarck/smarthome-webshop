@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AnyObject } from 'chart.js/types/basic';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ProductModel } from '../models';
 
@@ -14,28 +13,27 @@ export class SharedService {
   loginFailed: Subject<boolean> = new Subject();
   reLogin: Subject<boolean> = new Subject();
 
-  private procductListSource = new BehaviorSubject([]);
+  private procductListSource = new BehaviorSubject<ProductModel[]>([]);
   productList = this.procductListSource.asObservable();
 
-  private productAmmountSource = new BehaviorSubject('');
+  private productAmmountSource = new BehaviorSubject<string>('');
   productAmmount = this.productAmmountSource.asObservable();
 
   constructor(private _snackBar: MatSnackBar) {
     var already_selected_products = localStorage.getItem("products_in_cart")
-    if (already_selected_products != null){
+    if (already_selected_products != null) {
       this.selectedProducts = JSON.parse(already_selected_products || "").source._value
       this.procductListSource.next(this.selectedProducts)
     }
   }
 
-  addProduct(product: any) {
+  addProduct(product: ProductModel) {
     let counter: number = 0;
 
     if (this.selectedProducts.length == 0) {
       this.selectedProducts.push({ product: product, ammount: 1 })
-      }  
-    else 
-    {
+    }
+    else {
       for (let item of this.selectedProducts) {
         if (item.product.id === product.id) {
           this.changeAmmountById(product.id, 1)

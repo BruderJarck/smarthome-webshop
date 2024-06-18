@@ -1,87 +1,51 @@
-<div
-  *ngIf="itemsToBePruchased.length == 0"
-  class="wrapper shop-now"
-  fxLayout="column"
-  fxLayoutAlign="center center"
->
+<div *ngIf="itemsToBePruchased.length == 0" class="wrapper shop-now" fxLayout="column" fxLayoutAlign="center center">
   <h1>Es sind keine Produkte im Einkaufskorb</h1>
-  <button mat-flat-button routerLink="/product-list" class="button">
+  <button mat-flat-button routerLink="/webshop/product-list" class="button">
     Jetzt shoppen!
   </button>
   <p>Und abzezockt werden™</p>
 </div>
-<div
-  fxLayout="row"
-  class="content-container wrapper"
-  fxLayout="column"
-  *ngIf="itemsToBePruchased.length != 0"
->
+<div fxLayout="row" class="content-container wrapper" fxLayout="column" *ngIf="itemsToBePruchased.length != 0">
   <div fxLayout="row" fxLayoutGap="16px" fxFlex="grow">
     <div fxLayout="column" fxFlex="60%">
       <div fxFlex="grow">
         <mat-card appearance="outlined" *ngFor="let item of itemsToBePruchased" class="card height">
           <mat-card-content fxFlex="grow">
-            <div fxLayout="column" >
+            <div fxLayout="column">
               <div fxFlex="30%" class="picture" fxLayoutAlign="center none">
-                <img style="width: 175px; height: auto;" [src]=item.product.img />
+                <img [src]=item.product.img />
               </div>
               <div fxLayout="row">
-              <div fxFlex="65%" class="text">
-                <div class="title">{{ item.product.name }}</div>
-                <!-- <div class="description">
-                  {{ item.product.description }}
-                </div> -->
-                <div fxLayout="row" class="options" fxLayoutAlign="none center">
-                  <div>Menge:</div>
-                  <button
-                    mat-icon-button
-                    (click)="changeAmmount(item, 'sub', $event)"
-                  >
-                    <mat-icon>remove</mat-icon>
-                  </button>
-                  <input
-                    type="number"
-                    class="test"
-                    [value]="item.ammount"
-                    (change)="changeAmmount(item, 'neut', $event)"
-                    maxlength="3"
-                    min="1"
-                    max="100"
-                  />
-                  <button
-                    mat-icon-button
-                    (click)="changeAmmount(item, 'add', $event)"
-                  >
-                    <mat-icon>add</mat-icon>
-                  </button>
-                  <div class="divider"></div>
-                  <a class="remove-item" (click)="removeItem(item)"
-                    >Entfernen</a
-                  >
-                </div>
-              </div>
-              <div
-                fxFlex="fill"
-                fxLayout="column"
-                class="card-content price wrapper"
-                fxLayoutAlign="start"
-              >
-                <div class="card-content price name" fxLayoutAlign="end">
-                  Einzelpreis:
-                </div>
-                <div fxLayout="row" fxLayoutAlign="end" >
-                  <div class="card-content price main">
-                    {{ item.product.price }}
+                <div fxFlex="65%" class="text">
+                  <div class="title">{{ item.product.name }}</div>
+                  <div fxLayout="row" class="options" fxLayoutAlign="none center">
+                    <div>Menge:</div>
+                    <button mat-icon-button (click)="changeAmmount(item, 'sub', $event)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                    <input type="number" class="test" [value]="item.ammount"
+                      (change)="changeAmmount(item, 'neut', $event)" maxlength="3" min="1" max="100" />
+                    <button mat-icon-button (click)="changeAmmount(item, 'add', $event)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                    <div class="divider"></div>
+                    <a class="remove-item" (click)="removeItem(item)">Entfernen</a>
                   </div>
-                  <div
-                    class="card-content price upper"
-                    fxLayoutAlign="start start"
-                  >
-                    ,99€
+                </div>
+                <div fxFlex="fill" fxLayout="column" class="card-content price wrapper" fxLayoutAlign="start">
+                  <div class="card-content price name" fxLayoutAlign="end">
+                    Einzelpreis:
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="end">
+                    <div class="card-content price main">
+                      {{ item.product.price }}
+                    </div>
+                    <div class="card-content price upper" fxLayoutAlign="start start">
+                      ,99€
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
           </mat-card-content>
         </mat-card>
@@ -90,54 +54,54 @@
     <div fxLayout="column" fxFlex="40%">
       <div fxFlex="grow">
         <mat-card appearance="outlined" class="card" fxLayout="column">
-          <button mat-flat-button fxFlex="grow" class="button long" (click)="checkout()">
+          <button mat-button fxFlex="grow" class="button long" (click)="checkout()">
             Kaufen
           </button>
           <br />
           <div>
             Artikel ({{ totalItems }}): EUR
             {{
-              totalItemsBaseCost.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-              })
+            totalItemsBaseCost.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+            })
             }}
           </div>
           <div>
             Versandkosten: EUR
             {{
-              (this.shipCost * this.totalItems).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-              })
+            (this.shipCost * this.totalItems).toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+            })
             }}
           </div>
           <div>
             Bearbeitungskosten: EUR
             {{
-              this.workCost.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-              })
+            this.workCost.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+            })
             }}
           </div>
           <div>
             Mehrwertsteuer(24%): EUR
             {{
-              (this.mwst * this.totalItemsBaseCost).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-              })
+            (this.mwst * this.totalItemsBaseCost).toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+            })
             }}
           </div>
           <br />
           <div>
             Summe: EUR
             {{
-              this.totalPrice.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-              })
+            this.totalPrice.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+            })
             }}
           </div>
         </mat-card>

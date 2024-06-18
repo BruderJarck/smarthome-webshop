@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SensorService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private baseURL = environment.baseURL
   private sensorsURL = this.baseURL + 'sensors/';
@@ -23,21 +23,21 @@ export class SensorService {
     }),
   };
 
-  getSensors(): Observable<any[]> {
+  getSensors(): Observable<SensorModel[]> {
     return this.http.get<SensorModel[]>(this.sensorsURL);
   }
 
-  filterSensorsByUserId(term: string): Observable<any[]> {
-    if(!term.trim()){return of([]);}
+  filterSensorsByUserId(term: string): Observable<SensorModel[]> {
+    if (!term.trim()) { return of([]); }
     return this.http.get<SensorModel[]>(`${this.sensorsURL}?search=${term}`)
   }
 
-  getSensorValues(): Observable<any[]>{
+  getSensorValues(): Observable<SensorValueModel[]> {
     return this.http.get<SensorValueModel[]>(this.sensorsValueURL)
   }
 
   filterSensorsBySensorId(term: string): Observable<any[]> {
-    if(!term.trim()){return of([]);}
+    if (!term.trim()) { return of([]); }
     return this.http.get<SensorModel[]>(`${this.sensorsValueURL}?search=${term}`)
   }
 }

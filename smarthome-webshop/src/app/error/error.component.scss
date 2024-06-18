@@ -1,7 +1,7 @@
-
 .button {
-    background-color: #fbac09;
-    &.long {
-      padding: 8px;
-    }
+  background-color: var(--primary-color);
+
+  &.long {
+    padding: 8px;
   }
+}

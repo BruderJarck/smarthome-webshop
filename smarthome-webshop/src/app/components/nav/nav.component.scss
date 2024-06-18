@@ -1,7 +1,6 @@
 .nav-wrapper {
   padding: 16px 32px;
-  background-color: whitesmoke;
-  height: 72px;
+  background-color: var(--background-color);
 }
 
 .search-bar {
@@ -23,10 +22,10 @@ img {
 .mat-mdc-fab,
 .mat-mdc-mini-fab {
   color: black;
-  background-color: #fbac09;
+  background-color: vaar(--primary-color);
 }
 
 ::ng-deep .mat-badge-medium .mat-badge-content {
   background-color: #000000;
-  color: #fbac09;
+  color: var(--primary-color);
 }

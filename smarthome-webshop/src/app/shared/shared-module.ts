@@ -13,4 +13,4 @@ import { ANGULAR_MATERIAL_MODULES } from '../libs/angular-material.iports';
     ...ANGULAR_MATERIAL_MODULES,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

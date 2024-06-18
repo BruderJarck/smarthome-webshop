@@ -18,7 +18,7 @@ ALLOWED_HOSTS = []
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0k%h7#hzvrris18pz2rrkq-qip-0)1z8hnhdactqqgt6hu#ur='
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # Application definition
 
@@ -131,14 +131,14 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "huestajarck@gmail.com"
-EMAIL_HOST_PASSWORD = "xnjmzfzrspcvcevp"
+EMAIL_HOST_PASSWORD = os.environ['GMAIL_HOST_PASSWORD']
 
 DATA_UPLOAD_MAX_MEMORY_SIZE=1000000000
 
 cloudinary.config( 
   cloud_name = "discover-smarthome", 
-  api_key = "356421552775321", 
-  api_secret = "iTh9UZG0xA43UO-H8MCuUzb4rN8" 
+  api_key = os.environ['CLOUDINARY_API_KEY'],
+  api_secret = os.environ['COUDINARY_SECRET'] 
 )
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

@@ -13,18 +13,18 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AccountService {
-  tokenPayload: any;
-  accessToken?: any;
-  refreshToken?: any;
-  expirationDateAccess: any;
-  expirationDateRefresh: any;
+  tokenPayload: string = ""
+  accessToken: string = ""
+  refreshToken: string = ""
+  expirationDateAccess: string = ""
+  expirationDateRefresh: string = ""
 
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
     private sharedService: SharedService,
     private router: Router
-  ) {}
+  ) { }
 
   private baseURL = environment.baseURL
   private usersURL = this.baseURL + 'users/';
@@ -57,7 +57,7 @@ export class AccountService {
   isExpired(token: string): boolean {
     return this.jwtHelper.isTokenExpired(token);
   }
-  
+
   isLoggedIn(): boolean {
     var isAccessExpired = this.jwtHelper.isTokenExpired(localStorage.getItem("access") || "")
     var isRefreshExpired = this.jwtHelper.isTokenExpired(localStorage.getItem("refresh") || "")
@@ -71,20 +71,20 @@ export class AccountService {
       .post<UserModel>(this.baseURL + 'api/token/', { username, password })
       .pipe(
         tap((res) => {
-            this.getUserByUsername(username).subscribe(
-              (res) => {
-                console.log(res)
-                localStorage.setItem('username', res[0].username)
-                localStorage.setItem('email', res[0].email)
-                localStorage.setItem('profile_pic', res[0].profile_picture)
-                localStorage.setItem('id', String(res[0].id))
-                this.router.navigateByUrl(localStorage.getItem('routeAfterLogin') || '/')
-              },
-              (err) => {
-                console.log(err);
-                this.sharedService.loginFailed.next(true)
-              }
-            )
+          this.getUserByUsername(username).subscribe(
+            (res) => {
+              console.log(res)
+              localStorage.setItem('username', res[0].username)
+              localStorage.setItem('email', res[0].email)
+              localStorage.setItem('profile_pic', res[0].profile_picture)
+              localStorage.setItem('id', String(res[0].id))
+              this.router.navigateByUrl(localStorage.getItem('routeAfterLogin') || '/')
+            },
+            (err) => {
+              console.log(err);
+              this.sharedService.loginFailed.next(true)
+            }
+          )
           this.saveTokens(res, false);
           console.log(res);
         })
@@ -134,7 +134,7 @@ export class AccountService {
     localStorage.removeItem('products_in_cart')
   }
 
-  getAllUseres(): Observable<UserModel[]>{
+  getAllUseres(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(`${this.usersURL}`);
   }
 
@@ -147,7 +147,7 @@ export class AccountService {
     return this.http.get<UserModel>(url);
   }
 
-  getUserByUsername(term: string): Observable<UserModel[]>{
+  getUserByUsername(term: string): Observable<UserModel[]> {
     if (!term.trim()) {
       return of([]);
     }
@@ -155,11 +155,11 @@ export class AccountService {
   }
 
   getEmail(email: string) {
-    if(!email.trim()){return of([]);}
+    if (!email.trim()) { return of([]); }
     return this.http.get(`${this.baseURL}?search=${email}`, this.httpOptions);
   }
 
-  registerNewUser(uploadData: FormData){
+  registerNewUser(uploadData: FormData) {
     return this.http.post<UserModel>(this.baseURL + 'register-new-user/', uploadData)// 'profile_picture': profile_picture})
   }
 }

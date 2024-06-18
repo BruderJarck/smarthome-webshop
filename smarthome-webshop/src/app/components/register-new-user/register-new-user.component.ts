@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, EmailValidator} from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, EmailValidator } from '@angular/forms';
 import { AccountService } from 'src/app/shared/account.service';
 import { Router } from '@angular/router';
 
@@ -13,16 +13,16 @@ export class RegisterNewUserComponent implements OnInit {
   FormGroup: any;
   isEditable = false;
 
-  srcResult: any
+  srcResult: string = ""
   url: any
-  
+
   imageChangedEvent: any = '';
   croppedImage: any = '';
   username: string = "no username"
   email: string = "no email"
-  password: string = "no passoword"
+  password: string = "no password"
   default_avatar_path: string = "/assets/default_avatar.png"
-   
+
 
   @ViewChild('stepper') stepper: any;
 
@@ -31,10 +31,10 @@ export class RegisterNewUserComponent implements OnInit {
     private _formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit() {
-    
+
     this.FormGroup = new UntypedFormGroup({
       standartCtrl: new UntypedFormControl('', Validators.required),
       emailCtrl: new UntypedFormControl('', [Validators.required, Validators.email]),
@@ -44,33 +44,31 @@ export class RegisterNewUserComponent implements OnInit {
   }
 
   fileChangeEvent(event: any): void {
-      this.imageChangedEvent = event;
+    this.imageChangedEvent = event;
   }
 
   imageCropped(event: any) {
-      this.croppedImage = event.base64;
-      console.log(event);
-      this.username = this.FormGroup.get('standartCtrl').value
-      this.email    = this.FormGroup.get('emailCtrl').value
-      
+    this.croppedImage = event.base64;
+    console.log(event);
+    this.username = this.FormGroup.get('standartCtrl').value
+    this.email = this.FormGroup.get('emailCtrl').value
+
   }
 
   loadImageFailed() {
-      // show message
+    // show message
   }
 
   readDefaultPhoto(event: any) {
     var reader = new FileReader();
-		// reader.readAsDataURL(this.default_avatar_path);
-		reader.onload = (_event) => {
-		this.url = reader.result;
-    this.srcResult = event.target.files[0];
-    // this.image = reader.
-    console.log(event.target);
-		}
+    reader.onload = (_event) => {
+      this.url = reader.result;
+      this.srcResult = event.target.files[0];
+      console.log(event.target);
+    }
   }
 
-  onSubmitRegistration(){
+  onSubmitRegistration() {
     const username = this.FormGroup.get('standartCtrl').value
     const password = this.FormGroup.get('passwordCtrl').value
     const email = this.FormGroup.get('emailCtrl').value

@@ -1,6 +1,9 @@
-<app-nav></app-nav>
-<app-categories></app-categories>
-<div class="page children">
-  <router-outlet fxFill></router-outlet>
+<div style="min-height: 100%; background-color: var(--background-color);">
+  <div class="navbar">
+    <app-nav></app-nav>
+    <app-categories></app-categories>
+  </div>
+  <div style="margin-top: 20vh;">
+    <router-outlet ></router-outlet>
+  </div>
 </div>
-

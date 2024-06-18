@@ -9,17 +9,15 @@ import { AccountService } from 'src/app/shared/account.service';
   styleUrls: ['./sensor-data.component.scss'],
 })
 export class SensorDataComponent {
-  panelOpenState: boolean = false;
-  options: any;
-  res: any;
-  sensors: SensorModel[] = [];
-  loading: boolean = true;
-  noSensors: boolean = false;
-  
-  temp: any[] = []
-  hum: any[] = []
-  pres: any[] = []
-  dt: any[] = []
+  panelOpenState: boolean = false
+  sensors: SensorModel[] = []
+  loading: boolean = true
+  noSensors: boolean = false
+
+  temp: number[] = []
+  hum: number[] = []
+  pres: number[] = []
+  dt: number[] = []
 
   maxTemp: Number = 0
   maxHum: Number = 0
@@ -28,26 +26,26 @@ export class SensorDataComponent {
   constructor(
     private sensorService: SensorService,
     private accountService: AccountService
-    ) {
-    
-      var username = localStorage.getItem('username') || ""
-      this.accountService.getUserByUsername(username).subscribe(
-        (user) =>  {
-          this.sensorService.filterSensorsByUserId(String(user[0].id)).subscribe(
-            (sesorResponse) => {
-              console.log(sesorResponse)
-              if(sesorResponse.length != 0 ){
-                for(let _sensor in sesorResponse){
-                
+  ) {
+
+    var username = localStorage.getItem('username') || ""
+    this.accountService.getUserByUsername(username).subscribe(
+      (user) => {
+        this.sensorService.filterSensorsByUserId(String(user[0].id)).subscribe(
+          (sesorResponse) => {
+            console.log(sesorResponse)
+            if (sesorResponse.length != 0) {
+              for (let _sensor in sesorResponse) {
+
                 this.sensorService.filterSensorsBySensorId(String(sesorResponse[_sensor].id)).subscribe(
                   (sensorValueResponse) => {
-                    for(let sensorValue in sensorValueResponse){
+                    for (let sensorValue in sensorValueResponse) {
                       this.temp.push(sensorValueResponse[sensorValue].id)
                       this.hum.push(sensorValueResponse[sensorValue].hum)
                       this.pres.push(sensorValueResponse[sensorValue].pres)
                       this.dt.push(sensorValueResponse[sensorValue].dt)
                     }
-            
+
                     var datamodel = {
                       labels: this.dt,
                       options: {
@@ -56,7 +54,6 @@ export class SensorDataComponent {
                             stepSize: 100,
 
                             type: 'linear',
-                            // grace: '500%'
                           }
                         },
                       },
@@ -91,10 +88,10 @@ export class SensorDataComponent {
                       ],
                     };
                     console.log(sesorResponse[_sensor]);
-                    
-                    this.maxTemp = this.temp.sort((n1, n2) => n1-n2).pop()
-                    this.maxHum = this.hum.sort((n1, n2) => n1-n2).pop()
-                    this.maxPres = this.pres.sort((n1, n2) => n1-n2).pop()
+
+                    this.maxTemp = this.temp.sort((n1, n2) => n1 - n2).pop() || 0
+                    this.maxHum = this.hum.sort((n1, n2) => n1 - n2).pop() || 0
+                    this.maxPres = this.pres.sort((n1, n2) => n1 - n2).pop() || 0
 
                     var sensor: SensorModel = {
                       id: sesorResponse[_sensor].id,
@@ -103,7 +100,7 @@ export class SensorDataComponent {
                       location: sesorResponse[_sensor].location,
                       ip_address: sesorResponse[_sensor].ip_address
                     };
-          
+
                     this.sensors.push(sensor)
 
                     this.loading = false
@@ -111,16 +108,16 @@ export class SensorDataComponent {
                 )
               }
             }
-            else{
+            else {
               this.noSensors = true
               this.loading = false
             }
-              
-            },
-            err=> console.log(err),
-            )
-        }
-      )
-      
+
+          },
+          err => console.log(err),
+        )
+      }
+    )
+
   }
 }

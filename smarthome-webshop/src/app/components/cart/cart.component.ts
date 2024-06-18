@@ -6,6 +6,7 @@ import { AccountService } from 'src/app/shared/account.service';
 import { ProductService } from 'src/app/shared/product.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Login } from '../nav/nav.component';
+import { ProductModel } from 'src/app/models';
 
 @Component({
   selector: 'app-cart',
@@ -34,20 +35,20 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.sharedService.productList.subscribe((item: any) => {
+    this.sharedService.productList.subscribe((item) => {
       this.itemsToBePruchased = [...item];
 
       this.calcPrice();
     });
   }
 
-  removeItem(e: any) {
-    let id = e.product.id;
+  removeItem(event: any) {
+    let id = event.product.id;
     this.sharedService.deleteProductById(id);
   }
 
-  changeAmmount(e: any, who: string, input: any) {
-    let id = e.product.id;
+  changeAmmount(event: any, who: string, input: any) {
+    let id = event.product.id;
 
     if (who == 'neut') {
       this.sharedService.changeAmmountById(id, input.target.value);

@@ -1,82 +1,46 @@
-<mat-stepper linear  #stepper>
+<mat-stepper linear #stepper>
   <mat-step [stepControl]="FormGroup" [editable]="isEditable" label="enter credentials">
     <form [formGroup]="FormGroup">
       <div fxLayout="column" fxFill fxLayoutAlign="center center">
 
-              <mat-form-field appearance="fill">
-                  <mat-label>username</mat-label>
-                  <input matInput formControlName="standartCtrl" required >
-              </mat-form-field>
-              <mat-form-field appearance="fill">
-                  <mat-label>email</mat-label>
-                  <input 
-                  matInput 
-                  formControlName="emailCtrl" 
-                  required >
-              </mat-form-field>
-              <mat-form-field appearance="fill">
-                  <mat-label>enter password</mat-label>
-              <input 
-              matInput 
-              formControlName="passwordCtrl" 
-              required 
-              [type]="true ? 'password' : 'text'"
-              >
-              </mat-form-field>
-              <mat-form-field appearance="fill">
-                  <mat-label>repeat password</mat-label>
-                  <input 
-                  matInput 
-                  formControlName="passwordCtrl" 
-                  required
-                  [type]="true ? 'password' : 'text'">
-              </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>username</mat-label>
+          <input matInput formControlName="standartCtrl" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>email</mat-label>
+          <input matInput formControlName="emailCtrl" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>enter password</mat-label>
+          <input matInput formControlName="passwordCtrl" required [type]="true ? 'password' : 'text'">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>repeat password</mat-label>
+          <input matInput formControlName="passwordCtrl" required [type]="true ? 'password' : 'text'">
+        </mat-form-field>
 
-              <button mat-button matStepperNext>Next</button>
-            </div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
 
     </form>
   </mat-step>
-  <!-- <mat-step [editable]="isEditable" label="crop image" >
-        <div fxLayout="column" fxLayoutAlign="center center">
-        <mat-label>choose profile picture and crop it to size</mat-label>
-        <input hidden (change)="fileChangeEvent($event)" #fileInput type="file">
-            <image-cropper
-                style="width: 25vw; height: auto"
-                [imageChangedEvent]="imageChangedEvent"
-                [maintainAspectRatio]="true"
-                [aspectRatio]="4 / 3"
-                format="png"
-                (imageCropped)="imageCropped($event)"
-                (loadImageFailed)="loadImageFailed()"
-                [cropperStaticHeight]="218"
-                [cropperStaticWidth]="231"
-                [roundCropper]="true"
-                [hideResizeSquares]="true"
-                imageURL="/assets/default_avatar.png"
-            ></image-cropper>
-      <div>
-        <button mat-raised-button (click)="fileInput.click()" >Choose File</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </div>
-  </mat-step> -->
   <mat-step>
     <ng-template matStepLabel>summary</ng-template>
-      <div fxLayout="column" fxFill fxLayoutAlign="center center">
-        <span>überprüfe ob die eingegebenen daten stimmen</span>
-        <img src="/assets/default_avatar.png" height=150px width=auto style="border-radius:100%;">
-          <div fxLayout="row" style="margin-top: 10px" fxLayoutGap="10px">
-            <div style="color: gray;" >
-              <p>username</p>
-              <p>email</p>
-            </div>
-            
-            <div style=" word-wrap: break-word;">
-              <p>{{ username }}</p>
-              <p>{{ email }}</p>
-            </div>
-          </div>
+    <div fxLayout="column" fxFill fxLayoutAlign="center center">
+      <span>überprüfe ob die eingegebenen daten stimmen</span>
+      <img src="/assets/default_avatar.png" height=150px width=auto style="border-radius:100%;">
+      <div fxLayout="row" style="margin-top: 10px" fxLayoutGap="10px">
+        <div style="color: gray;">
+          <p>username</p>
+          <p>email</p>
+        </div>
+
+        <div style=" word-wrap: break-word;">
+          <p>{{ username }}</p>
+          <p>{{ email }}</p>
+        </div>
+      </div>
       <div>
         <button mat-button (click)="stepper.reset()">Reset</button>
         <button mat-button (click)="onSubmitRegistration()">submit</button>
