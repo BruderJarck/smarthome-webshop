@@ -2,7 +2,6 @@ from .settings import *
 
 DEBUG = False
 
-# ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").split(",")
 
 DATABASES = {
