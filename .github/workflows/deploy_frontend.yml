@@ -31,5 +31,5 @@ jobs:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           
     - name: Deploy to Koyeb
-      run: koyeb service redeploy mild-eadie/smarthome-frontend
+      run: koyeb service redeploy discover-smarthome/smarthome-frontend
       
