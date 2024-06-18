@@ -13,7 +13,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 //import components from ./components
 import { CartComponent } from './components/cart/cart.component';
 import { CategoriesComponent } from './components/categories/categories.component';
-import { Login, NavComponent } from './components/nav/nav.component';
+import { DiscaimerDialog, Login, NavComponent } from './components/nav/nav.component';
 import { loginOrAsGuestDialogComponent } from './components/cart/cart.component';
 import { GuestEnterDataComponent } from './components/cart/cart.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
@@ -39,6 +39,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.component';
 import { PaginationPanelComponent } from './components/pagination-panel/pagination-panel.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { PaginationPanelComponent } from './components/pagination-panel/paginati
     CartComponent,
     NavComponent,
     Login,
+    DiscaimerDialog,
     loginOrAsGuestDialogComponent,
     GuestEnterDataComponent,
     CategoriesComponent,
@@ -78,6 +80,7 @@ import { PaginationPanelComponent } from './components/pagination-panel/paginati
     //primeng modules
     ChartModule,
     InputNumberModule,
+    MatDialogModule
   ],
   providers: [
     provideHttpClient(),

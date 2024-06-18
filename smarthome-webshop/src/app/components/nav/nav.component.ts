@@ -31,6 +31,7 @@ export class NavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.dialog.open(DiscaimerDialog)
     this.sharedService.reLogin.subscribe(
       reLoginState => {
         if (reLoginState == true) {
@@ -44,7 +45,6 @@ export class NavComponent implements OnInit {
     });
     this.productService.currentPageSize.subscribe(size => this.pageSize = size)
   }
-
   openDialog() {
     localStorage.setItem('routeAfterLogin', '/user')
     const dialogRef = this.dialog.open(Login);
@@ -103,4 +103,12 @@ export class Login {
   onLogout() {
     this.accountService.logout()
   }
+}
+
+@Component({
+  selector: 'discaimer-dialog',
+  templateUrl: 'discaimer-dialog.html',
+})
+export class DiscaimerDialog { 
+  constructor(){}
 }

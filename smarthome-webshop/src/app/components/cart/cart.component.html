@@ -1,6 +1,6 @@
 <div *ngIf="itemsToBePruchased.length == 0" class="wrapper shop-now" fxLayout="column" fxLayoutAlign="center center">
   <h1>Es sind keine Produkte im Einkaufskorb</h1>
-  <button mat-flat-button routerLink="/product-list" class="button">
+  <button mat-flat-button routerLink="/webshop/product-list" class="button">
     Jetzt shoppen!
   </button>
   <p>Und abzezockt werden™</p>
@@ -54,7 +54,7 @@
     <div fxLayout="column" fxFlex="40%">
       <div fxFlex="grow">
         <mat-card appearance="outlined" class="card" fxLayout="column">
-          <button mat-flat-button fxFlex="grow" class="button long" (click)="checkout()">
+          <button mat-button fxFlex="grow" class="button long" (click)="checkout()">
             Kaufen
           </button>
           <br />
