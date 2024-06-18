@@ -1,15 +1,13 @@
-  <div 
-    class="wrapper"
-    gdAreas.xs="sidebar | content | footer"  
-    gdAreas.sm="sidebar | content | footer"
-    gdAreas.gt-sm="sidebar content | footer footer">
-    
-    <app-filtering-panel [ngStyle.gt-sm]="{'max-width': 'fit-content'}" gdArea="sidebar"></app-filtering-panel>
-    <div fxLayout="column" fxLayoutAlign="space-around start" gdArea="content">
+<div class="wrapper" fxLayout="column" fxLayoutAlign="space-between">
+  <div class="content" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="center " >
+    <app-filtering-panel [ngStyle.gt-sm]="{'max-width': '40vb'}"></app-filtering-panel>
+    <div fxLayout="column" fxLayoutAlign="space-between center" >
       <div fxLayout="column" fxLayoutAlign="space-around end">
         <app-sorting-panel></app-sorting-panel>
         <app-shop></app-shop>
       </div>
+      <app-pagination-panel></app-pagination-panel>
     </div>
-    <app-footer gdArea="footer"></app-footer>
   </div>
+  <app-footer></app-footer>
+</div>
