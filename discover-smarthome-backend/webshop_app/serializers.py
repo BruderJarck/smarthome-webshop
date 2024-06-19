@@ -38,19 +38,16 @@ class ProductCategorySerializer(serializers.ModelSerializer):
 
 class PublicUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
-        new_pic = {"url": ""}
-        if validated_data['profile_picture'] != "":
-            new_pic = cloudinary.uploader.upload(validated_data['profile_picture'])
+        print(validated_data)
         return User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password'],
-            profile_picture=new_pic['url']
+            password=validated_data['password']
         )
 
     class Meta:
         model = get_user_model()
-        fields = ['id', 'username', 'password', 'email', 'profile_picture']
+        fields = ['id', 'username', 'email', 'password', 'profile_picture']
 
 
 class PrivateUserSerializer(serializers.ModelSerializer):

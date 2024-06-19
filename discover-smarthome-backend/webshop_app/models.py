@@ -59,7 +59,8 @@ class UserProfile(AbstractUser):
         help_text='Required. example: jon.doe@email.com')
     profile_picture = models.CharField(blank=True, null=True,
         max_length=10000000,
-        help_text="This needs to the cloudinary url which represents the desired image")
+        help_text="This needs to the cloudinary url which represents the desired image",
+        default="https://res.cloudinary.com/discover-smarthome/image/upload/v1718802134/default_avatar_qxwysy.jpg")
 
     def __str__(self) -> str:
         return f"User {self.username}"

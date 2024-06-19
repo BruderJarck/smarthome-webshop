@@ -68,12 +68,16 @@ export class RegisterNewUserComponent implements OnInit {
     }
   }
 
+  onNext(){
+    this.username = this.FormGroup.get('standartCtrl').value
+    this.email = this.FormGroup.get('emailCtrl').value
+  }
+
   onSubmitRegistration() {
     const username = this.FormGroup.get('standartCtrl').value
     const password = this.FormGroup.get('passwordCtrl').value
     const email = this.FormGroup.get('emailCtrl').value
     const uploadData = new FormData()
-    uploadData.append('profile_picture', this.croppedImage)
     uploadData.append('username', username)
     uploadData.append('password', password)
     uploadData.append('email', email)

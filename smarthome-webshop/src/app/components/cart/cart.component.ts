@@ -78,12 +78,13 @@ export class CartComponent implements OnInit {
   }
 
     checkout(): void {
-    console.log(this.accountService.isLoggedIn())
     if (this.accountService.isLoggedIn() == true){
       if (this.pay() == true){
         this.itemsToBePruchased.forEach((element) => {
-          console.log(Number(localStorage.getItem("id") || ""))
-          this.productService.submitOrder(Number(localStorage.getItem("id") || ""), element.product.id).subscribe((resp)=> console.log(resp))
+          console.log(element)
+          if(element.product.category == 1){
+            this.productService.submitOrder(localStorage.getItem("username") || "" , element.product.name).subscribe((resp)=> console.log(resp))
+          }
         })
       }
       this.router.navigateByUrl("/webshop/sensors")

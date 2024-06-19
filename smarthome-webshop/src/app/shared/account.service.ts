@@ -29,13 +29,6 @@ export class AccountService {
   private baseURL = environment.baseURL
   private usersURL = this.baseURL + 'users/';
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + this.accessToken,
-    }),
-  };
-
   canActivate(): boolean {
     if (this.isExpired(localStorage.getItem('refresh') || '')) {
       this.router.navigate(['/']);
@@ -71,22 +64,25 @@ export class AccountService {
       .post<UserModel>(this.baseURL + 'api/token/', { username, password })
       .pipe(
         tap((res) => {
-          this.getUserByUsername(username).subscribe(
-            (res) => {
-              console.log(res)
-              localStorage.setItem('username', res[0].username)
-              localStorage.setItem('email', res[0].email)
-              localStorage.setItem('profile_pic', res[0].profile_picture)
-              localStorage.setItem('id', String(res[0].id))
-              this.router.navigateByUrl(localStorage.getItem('routeAfterLogin') || '/')
-            },
-            (err) => {
-              console.log(err);
-              this.sharedService.loginFailed.next(true)
+          this.saveTokenObservable(res, false).subscribe(
+            (tokem) => {
+              console.log("token", tokem)
+              this.getUserByUsername(username).subscribe(
+                (res) => {
+                  console.log(res)
+                  localStorage.setItem('username', res.username)
+                  localStorage.setItem('email', res.email)
+                  localStorage.setItem('profile_pic', res.profile_picture)
+                  localStorage.setItem('id', String(res.id))
+                  // this.router.navigateByUrl(localStorage.getItem('routeAfterLogin') || '/')
+                },
+                (err) => {
+                  console.log(err);
+                  this.sharedService.loginFailed.next(true)
+                }
+              )
             }
           )
-          this.saveTokens(res, false);
-          console.log(res);
         })
       );
   }
@@ -96,8 +92,7 @@ export class AccountService {
     return this.http
       .post<RespModel>(
         this.baseURL + 'api/token/refresh/',
-        { refresh: localStorage.getItem('refresh') },
-        this.httpOptions
+        { refresh: localStorage.getItem('refresh') }
       )
       .pipe(
         tap((res) => console.log(`got refreshed tokens ${res['access']} ${this.isExpired(res['refresh'])} ${res}`)),
@@ -105,7 +100,12 @@ export class AccountService {
       );
   }
 
-  saveTokens(res: any, refresh: boolean) {
+  saveTokenObservable(res: any, refresh: boolean): Observable<string>{
+    return of(this.saveTokens(res,refresh))
+  } 
+
+
+  saveTokens(res: any, refresh: boolean): string{
     var accessToken: string = res['access'];
     var refreshToken: string = res['refresh'];
 
@@ -120,11 +120,13 @@ export class AccountService {
       this.refreshToken = refreshToken;
       localStorage.setItem('refresh', refreshToken);
     }
+  
+    return accessToken
   }
 
   logout() {
     this.sharedService.loginFailed.next(false)
-    this.router.navigateByUrl('/product-list')
+    this.router.navigateByUrl('/webshop/product-list')
     localStorage.removeItem('access')
     localStorage.removeItem('refresh')
     localStorage.removeItem('username')
@@ -147,19 +149,19 @@ export class AccountService {
     return this.http.get<UserModel>(url);
   }
 
-  getUserByUsername(term: string): Observable<UserModel[]> {
-    if (!term.trim()) {
-      return of([]);
+  getUserByUsername(username: string): Observable<UserModel> {
+    if (!username.trim()) {
+      return of();
     }
-    return this.http.get<UserModel[]>(`${this.usersURL}?search=${term}`);
+    return this.http.get<UserModel>(`${this.usersURL}${username}/`);
   }
 
   getEmail(email: string) {
     if (!email.trim()) { return of([]); }
-    return this.http.get(`${this.baseURL}?search=${email}`, this.httpOptions);
+    return this.http.get(`${this.baseURL}?search=${email}`);
   }
 
   registerNewUser(uploadData: FormData) {
-    return this.http.post<UserModel>(this.baseURL + 'register-new-user/', uploadData)// 'profile_picture': profile_picture})
+    return this.http.post<UserModel>(this.baseURL + 'register-new-user/', uploadData)
   }
 }

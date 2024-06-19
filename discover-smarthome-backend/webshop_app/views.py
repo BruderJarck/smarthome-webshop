@@ -54,6 +54,7 @@ class CustomUserViewset(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, )
     authentication_classes = [JWTAuthentication, ]
     permission_classes = [IsAuthenticated, ]
+    lookup_field = "username"    
 
 class OrderingViewSet(viewsets.ModelViewSet):
     queryset = models.OrderingModel.objects.all()
@@ -62,6 +63,23 @@ class OrderingViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, )
     authentication_classes = [JWTAuthentication, ]
     permission_classes = [IsAuthenticated, ]
+
+    def create(self, request):
+        print(request.data)
+        data = request.data
+        product =  models.ProductModel.objects.get(name=data["product"])
+        user = models.UserProfile.objects.get(username=data['user'])
+        order = models.OrderingModel(user=user, product=product)
+        order.save()
+        sensor = models.SensorModel(user=user, product=product, location="home", name="sensor", ip_address="0.0.0.0.0")
+        sensor.save()
+        import random, datetime
+
+        for x in range(30):
+                val = models.SensorValueModel.objects.create(sensor=sensor,temp=random.randint(0,100),hum=random.randint(0,100),pres=random.randint(0,1000),dt=datetime.datetime.now())
+                val.save()
+        
+        return Response(status=200)
 
 class ProductCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.ProductCategoryModel.objects.all()
@@ -74,13 +92,15 @@ def register_new_user(request):
     serializer = serializers.PublicUserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(data=serializer.data, status=201)
+        resp = serializer.data
+        resp.pop("password")
+        print(resp)
+        return Response(data=resp, status=201)
     return Response(serializer.errors, status=400)
 
 @decorators.api_view(['GET'])
 @decorators.permission_classes([AllowAny])
 def verifiy_user(request):
-    
     serializer = serializers.PrivateUserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -90,7 +110,6 @@ def verifiy_user(request):
 @decorators.api_view(['POST'])
 @decorators.permission_classes([AllowAny])
 def submit_order(request):
-    print(request.__dict__)
     request = request.data
     email = request['email']
     products = request['products']
