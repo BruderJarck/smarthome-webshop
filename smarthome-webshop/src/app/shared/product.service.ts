@@ -102,7 +102,7 @@ export class ProductService {
     return this.getProducts(this.currentPageSizelocal)
   }
 
-  submitOrder(userId: number, productId: number): Observable<OrderModel> {
+  submitOrder(userId: string, productId: number): Observable<OrderModel> {
 
     return this.http.post<OrderModel>(this.baseURL + "orders/", {
       "user": userId,

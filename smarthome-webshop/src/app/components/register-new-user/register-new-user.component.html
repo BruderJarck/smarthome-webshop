@@ -4,23 +4,23 @@
       <div fxLayout="column" fxFill fxLayoutAlign="center center">
 
         <mat-form-field appearance="fill">
-          <mat-label>username</mat-label>
+          <mat-label>Nutzername</mat-label>
           <input matInput formControlName="standartCtrl" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>email</mat-label>
+          <mat-label>Email</mat-label>
           <input matInput formControlName="emailCtrl" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>enter password</mat-label>
+          <mat-label>Passwort eingeben</mat-label>
           <input matInput formControlName="passwordCtrl" required [type]="true ? 'password' : 'text'">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>repeat password</mat-label>
+          <mat-label>Password eingeben</mat-label>
           <input matInput formControlName="passwordCtrl" required [type]="true ? 'password' : 'text'">
         </mat-form-field>
 
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext (click)="onNext()">Next</button>
       </div>
 
     </form>
@@ -28,7 +28,7 @@
   <mat-step>
     <ng-template matStepLabel>summary</ng-template>
     <div fxLayout="column" fxFill fxLayoutAlign="center center">
-      <span>überprüfe ob die eingegebenen daten stimmen</span>
+      <span>Überprüfen Sie die angegebenen Daten.</span>
       <img src="/assets/default_avatar.png" height=150px width=auto style="border-radius:100%;">
       <div fxLayout="row" style="margin-top: 10px" fxLayoutGap="10px">
         <div style="color: gray;">

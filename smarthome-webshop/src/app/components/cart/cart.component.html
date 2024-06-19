@@ -5,9 +5,9 @@
   </button>
   <p>Und abzezockt werden™</p>
 </div>
-<div fxLayout="row" class="content-container wrapper" fxLayout="column" *ngIf="itemsToBePruchased.length != 0">
-  <div fxLayout="row" fxLayoutGap="16px" fxFlex="grow">
-    <div fxLayout="column" fxFlex="60%">
+<div fxLayout="row"  class="content-container wrapper" *ngIf="itemsToBePruchased.length != 0">
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxFlex="grow">
+    <div fxLayout="column" fxFlex.gt-sm="60%">
       <div fxFlex="grow">
         <mat-card appearance="outlined" *ngFor="let item of itemsToBePruchased" class="card height">
           <mat-card-content fxFlex="grow">
@@ -15,7 +15,7 @@
               <div fxFlex="30%" class="picture" fxLayoutAlign="center none">
                 <img [src]=item.product.img />
               </div>
-              <div fxLayout="row">
+              <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="center center">
                 <div fxFlex="65%" class="text">
                   <div class="title">{{ item.product.name }}</div>
                   <div fxLayout="row" class="options" fxLayoutAlign="none center">
@@ -51,7 +51,7 @@
         </mat-card>
       </div>
     </div>
-    <div fxLayout="column" fxFlex="40%">
+    <div fxLayout="column" fxFlex.gt-sm="40%">
       <div fxFlex="grow">
         <mat-card appearance="outlined" class="card" fxLayout="column">
           <button mat-button fxFlex="grow" class="button long" (click)="checkout()">

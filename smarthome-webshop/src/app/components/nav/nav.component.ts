@@ -46,7 +46,7 @@ export class NavComponent implements OnInit {
     this.productService.currentPageSize.subscribe(size => this.pageSize = size)
   }
   openDialog() {
-    localStorage.setItem('routeAfterLogin', '/user')
+    localStorage.setItem('routeAfterLogin', '/webshop/user')
     const dialogRef = this.dialog.open(Login);
   }
   home() {

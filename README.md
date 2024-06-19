@@ -6,8 +6,8 @@
 - [x] pagination
 - [x] CI/CD github actions
 - [x] release
-- [ ] fix bought products added to user profile
-- [ ] fix login/userpage
+- [x] fix bought products added to user profile
+- [x] fix login/userpage
 - [x] fix theming
 - [x] fix exosed secrets in settings.py
 - [ ] make readmes presentable

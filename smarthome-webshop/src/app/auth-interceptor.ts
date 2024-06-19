@@ -35,6 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!req.url.includes('/api/')) {
       req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + localStorage.getItem("access") || "") })
+      console.log("auth intercept")
     }
 
     return next.handle(req).pipe(catchError(x => this.handleAuthError(x, req, next)))

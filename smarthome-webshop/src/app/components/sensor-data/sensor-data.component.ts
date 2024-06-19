@@ -31,7 +31,7 @@ export class SensorDataComponent {
     var username = localStorage.getItem('username') || ""
     this.accountService.getUserByUsername(username).subscribe(
       (user) => {
-        this.sensorService.filterSensorsByUserId(String(user[0].id)).subscribe(
+        this.sensorService.filterSensorsByUserId(String(user.id)).subscribe(
           (sesorResponse) => {
             console.log(sesorResponse)
             if (sesorResponse.length != 0) {
