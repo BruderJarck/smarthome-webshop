@@ -5,8 +5,8 @@
   </button>
   <p>Und abzezockt werden™</p>
 </div>
-<div fxLayout="row" class="content-container wrapper" fxLayout="column" *ngIf="itemsToBePruchased.length != 0">
-  <div fxLayout="row" fxLayoutGap="16px" fxFlex="grow">
+<div fxLayout="row"  class="content-container wrapper" *ngIf="itemsToBePruchased.length != 0">
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxFlex="grow">
     <div fxLayout="column" fxFlex="60%">
       <div fxFlex="grow">
         <mat-card appearance="outlined" *ngFor="let item of itemsToBePruchased" class="card height">
@@ -15,7 +15,7 @@
               <div fxFlex="30%" class="picture" fxLayoutAlign="center none">
                 <img [src]=item.product.img />
               </div>
-              <div fxLayout="row">
+              <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="center center">
                 <div fxFlex="65%" class="text">
                   <div class="title">{{ item.product.name }}</div>
                   <div fxLayout="row" class="options" fxLayoutAlign="none center">

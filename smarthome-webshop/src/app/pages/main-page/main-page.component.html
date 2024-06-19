@@ -1,9 +1,9 @@
-<div style="min-height: 100%; background-color: var(--background-color);">
+<div fxLayout="column" style="min-height: 100%; background-color: var(--background-color);">
   <div class="navbar">
     <app-nav></app-nav>
     <app-categories></app-categories>
   </div>
-  <div style="margin-top: 20vh;">
+  <div ngStyle.gt-xs="margin-top: 20vh;" ngStyle.xs="margin-top: 30vh">
     <router-outlet ></router-outlet>
   </div>
 </div>

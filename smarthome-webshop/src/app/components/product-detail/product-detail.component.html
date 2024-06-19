@@ -3,7 +3,7 @@
     <span class="material-icons"> chevron_left </span>
     <a routerLink="/webshop/product-list">Zurück zur Startseite</a>
   </div>
-  <div fxLayout="row" fxLayoutAlign="space-around start">
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="center center" fxLayoutAlign="space-around start">
     <div fxFlex="40%" fxLayoutAlign="center start">
         <img [src]=product.img alt="" class="picture"/>
     </div>
