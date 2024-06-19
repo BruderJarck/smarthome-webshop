@@ -77,7 +77,7 @@ export class CartComponent implements OnInit {
       this.shipCost * this.totalItems;
   }
 
-  checkout(): void {
+    checkout(): void {
     console.log(this.accountService.isLoggedIn())
     if (this.accountService.isLoggedIn() == true){
       if (this.pay() == true){
@@ -86,7 +86,7 @@ export class CartComponent implements OnInit {
           this.productService.submitOrder(Number(localStorage.getItem("id") || ""), element.product.id).subscribe((resp)=> console.log(resp))
         })
       }
-      this.router.navigateByUrl("/sensors")
+      this.router.navigateByUrl("/webshop/sensors")
     }
 
     else{
@@ -153,12 +153,12 @@ export class loginOrAsGuestDialogComponent {
   ngOnInit(){
     this.imgSrc = localStorage.getItem("profile_pic") || ""
     if(this.accountService.isExpired(localStorage.getItem('access') || "") == false){
-      this.router.navigateByUrl('/checkout')
+      this.router.navigateByUrl('/webshop/checkout')
     }
   }
 
   login(){
-    localStorage.setItem('routeAfterLogin', '/checkout')
+    localStorage.setItem('routeAfterLogin', '/webshop/checkout')
     const dialogRef = this.dialog.open(Login);
 
     this.shared.loginFailed.subscribe(res => {
@@ -180,7 +180,7 @@ export class loginOrAsGuestDialogComponent {
           // )
         };
         
-        this.router.navigateByUrl('/checkout')
+        this.router.navigateByUrl('/webshop/checkout')
         this.dialog.closeAll()
       })
     

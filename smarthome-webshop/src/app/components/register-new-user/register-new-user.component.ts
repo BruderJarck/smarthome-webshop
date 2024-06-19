@@ -82,7 +82,7 @@ export class RegisterNewUserComponent implements OnInit {
         (res) => {
           console.log(res)
           this.accountService.login(username, password).subscribe(
-            () => this.router.navigateByUrl('/sensors')
+            () => this.router.navigateByUrl('/webshop/sensors')
           )
         }
       )
