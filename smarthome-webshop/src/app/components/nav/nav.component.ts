@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/account.service';
 import { ProductService } from 'src/app/shared/product.service';
@@ -80,7 +80,9 @@ export class Login {
 
   hide = true;
   constructor(
-    public accountService: AccountService
+    public accountService: AccountService,
+    public dialogRef: MatDialogRef<Login>
+
   ) { }
 
   getErrorMessage() {
@@ -92,11 +94,12 @@ export class Login {
   }
 
   onSubmit() {
-    console.log(this.email)
     this.accountService
       .login(this.email.value, this.password.value)
       .subscribe(
-        (res) => { console.log(res) }
+        () => {
+          this.dialogRef.close(true)
+        }
       );
   }
 

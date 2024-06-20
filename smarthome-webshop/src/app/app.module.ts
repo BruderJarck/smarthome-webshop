@@ -14,8 +14,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CartComponent } from './components/cart/cart.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { DiscaimerDialog, Login, NavComponent } from './components/nav/nav.component';
-import { loginOrAsGuestDialogComponent } from './components/cart/cart.component';
-import { GuestEnterDataComponent } from './components/cart/cart.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { SensorDataComponent } from './components/sensor-data/sensor-data.component';
@@ -51,8 +49,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     NavComponent,
     Login,
     DiscaimerDialog,
-    loginOrAsGuestDialogComponent,
-    GuestEnterDataComponent,
     CategoriesComponent,
     SidebarComponent,
     ProductDetailComponent,
