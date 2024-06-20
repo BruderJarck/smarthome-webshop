@@ -54,7 +54,6 @@ export class AccountService {
   isLoggedIn(): boolean {
     var isAccessExpired = this.jwtHelper.isTokenExpired(localStorage.getItem("access") || "")
     var isRefreshExpired = this.jwtHelper.isTokenExpired(localStorage.getItem("refresh") || "")
-    console.log(isAccessExpired, isRefreshExpired)
     return !isAccessExpired || !isRefreshExpired
   }
 
@@ -82,14 +81,12 @@ export class AccountService {
   }
 
   refreshLogin() {
-    console.log(this.refreshToken);
     return this.http
       .post<RespModel>(
         this.baseURL + 'api/token/refresh/',
         { refresh: localStorage.getItem('refresh') }
       )
       .pipe(
-        tap((res) => console.log(`got refreshed tokens ${res['access']} ${this.isExpired(res['refresh'])} ${res}`)),
         tap((res) => this.saveTokens(res, true))
       );
   }

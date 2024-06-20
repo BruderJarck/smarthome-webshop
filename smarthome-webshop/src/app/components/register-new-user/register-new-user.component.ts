@@ -49,7 +49,6 @@ export class RegisterNewUserComponent implements OnInit {
 
   imageCropped(event: any) {
     this.croppedImage = event.base64;
-    console.log(event);
     this.username = this.FormGroup.get('standartCtrl').value
     this.email = this.FormGroup.get('emailCtrl').value
 
@@ -64,7 +63,6 @@ export class RegisterNewUserComponent implements OnInit {
     reader.onload = (_event) => {
       this.url = reader.result;
       this.srcResult = event.target.files[0];
-      console.log(event.target);
     }
   }
 
@@ -84,7 +82,6 @@ export class RegisterNewUserComponent implements OnInit {
     this.accountService.registerNewUser(uploadData)
       .subscribe(
         (res) => {
-          console.log(res)
           this.accountService.login(username, password).subscribe(
             () => this.router.navigateByUrl('/webshop/sensors')
           )

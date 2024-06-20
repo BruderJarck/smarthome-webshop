@@ -80,9 +80,8 @@ export class CartComponent implements OnInit {
     if (this.accountService.isLoggedIn() == true) {
       if (this.pay() == true) {
         this.itemsToBePruchased.forEach((element) => {
-          console.log(element)
           if (element.product.category == 1) {
-            this.productService.submitOrder(localStorage.getItem("username") || "", element.product.name).subscribe((resp) => console.log(resp))
+            this.productService.submitOrder(localStorage.getItem("username") || "", element.product.name).subscribe()
           }
           this.sharedService.clearProducs()
         })
