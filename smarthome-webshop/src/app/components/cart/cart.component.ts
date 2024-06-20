@@ -81,7 +81,7 @@ export class CartComponent implements OnInit {
       if (this.pay() == true) {
         this.itemsToBePruchased.forEach((element) => {
           if (element.product.category == 1) {
-            this.productService.submitOrder(localStorage.getItem("username") || "", element.product.name).subscribe()
+            this.productService.submitOrder(localStorage.getItem("username") || "", element.product).subscribe()
           }
           this.sharedService.clearProducs()
         })
