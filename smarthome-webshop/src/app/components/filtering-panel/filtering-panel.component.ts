@@ -11,7 +11,7 @@ export class FilteringPanelComponent {
 
   categorys: ProductCategoryModel[] = []
   checkedCategorys: ProductCategoryModel[] = []
-
+  loading: boolean = true
 
   constructor(
     private productService: ProductService
@@ -21,6 +21,7 @@ export class FilteringPanelComponent {
     this.productService.getProductCategorys().subscribe(
       (categorys) => {
         this.categorys = categorys
+        this.loading = false
       })
   }
 

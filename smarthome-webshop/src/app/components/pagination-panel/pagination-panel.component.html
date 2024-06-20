@@ -1,3 +1,3 @@
-<mat-paginator fxLayoutAlign="center center" fxLayoutAlign.lt-sm="start start" style="background-color: var(--background-color); margin-bottom: 20vh;" [length]="totalProductAmount" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
+<mat-paginator fxLayoutAlign="center center" fxLayoutAlign.lt-sm="start start" ngClass.gt-xs="margin-bottom: 20vh;" style="background-color: var(--background-color); " [length]="totalProductAmount" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
   (page)="onPageChange($event)" aria-label="Select page">
 </mat-paginator>

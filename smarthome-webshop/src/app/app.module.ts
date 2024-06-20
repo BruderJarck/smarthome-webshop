@@ -30,10 +30,10 @@ import { SharedService } from './shared/shared.service';
 import { UserpageComponent } from './components/userpage/userpage.component';
 import { EditAccountComponent } from './components/edit-account/edit-account.component';
 
-import { AuthInterceptor, authInterceptorProviders } from './auth-interceptor';
+import { AuthInterceptor } from './auth-interceptor';
 import { KasseComponent } from './components/kasse/kasse.component';
 import { ErrorComponent } from './error/error.component';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.component';
 import { PaginationPanelComponent } from './components/pagination-panel/pagination-panel.component';

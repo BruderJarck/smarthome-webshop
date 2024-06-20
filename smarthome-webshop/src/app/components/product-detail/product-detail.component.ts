@@ -13,6 +13,7 @@ import { ProductModel } from '../../models';
 export class ProductDetailComponent implements OnInit {
   @Input() product?: ProductModel
   description?: SafeHtml
+  loading: boolean = true
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -26,6 +27,7 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProduct(name).subscribe(
       (res) => 
         {
+          this.loading = false
           this.description = this.sanitizer.bypassSecurityTrustHtml(res.description)
           this.product = res
         }

@@ -33,7 +33,6 @@ export class SensorDataComponent {
       (user) => {
         this.sensorService.filterSensorsByUserId(String(user.id)).subscribe(
           (sesorResponse) => {
-            console.log(sesorResponse)
             if (sesorResponse.length != 0) {
               for (let _sensor in sesorResponse) {
 
@@ -87,7 +86,6 @@ export class SensorDataComponent {
                         },
                       ],
                     };
-                    console.log(sesorResponse[_sensor]);
 
                     this.maxTemp = this.temp.sort((n1, n2) => n1 - n2).pop() || 0
                     this.maxHum = this.hum.sort((n1, n2) => n1 - n2).pop() || 0
