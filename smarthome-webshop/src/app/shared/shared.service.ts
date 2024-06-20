@@ -47,6 +47,7 @@ export class SharedService {
     }
     this.procductListSource.next(this.selectedProducts)
     localStorage.setItem("products_in_cart", JSON.stringify(this.productList))
+    this.calcTotalAmmount()
   }
 
   clearProducs(){
