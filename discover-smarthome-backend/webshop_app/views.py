@@ -71,7 +71,7 @@ class OrderingViewSet(viewsets.ModelViewSet):
         user = models.UserProfile.objects.get(username=data['user'])
         order = models.OrderingModel(user=user, product=product)
         order.save()
-        sensor = models.SensorModel(user=user, product=product, location="home", name="sensor", ip_address="0.0.0.0.0")
+        sensor = models.SensorModel(user=user, product=product, location="home", name="sensor", ip_address="192.168.0.1")
         sensor.save()
         import random, datetime
 
