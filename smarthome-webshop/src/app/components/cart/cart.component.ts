@@ -84,6 +84,7 @@ export class CartComponent implements OnInit {
           if (element.product.category == 1) {
             this.productService.submitOrder(localStorage.getItem("username") || "", element.product.name).subscribe((resp) => console.log(resp))
           }
+          this.sharedService.clearProducs()
         })
       }
       this.router.navigateByUrl("/webshop/sensors")

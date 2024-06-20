@@ -71,7 +71,6 @@ export class ProductService {
     return this.http.get<TotalCountModel>(this.baseURL + "total-count/");
   }
 
-  // FIXME: gerProducts params
   searchProducts(term: string): Observable<PaginatedProductModel> {
     if (!term.trim()) {
       return of();

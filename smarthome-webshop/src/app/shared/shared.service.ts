@@ -49,6 +49,13 @@ export class SharedService {
     localStorage.setItem("products_in_cart", JSON.stringify(this.productList))
   }
 
+  clearProducs(){
+    this.procductListSource.next([])
+    this.selectedProducts = []
+    this.calcTotalAmmount()
+    localStorage.removeItem("products_in_cart")
+  }
+
   deleteProductById(productId: number) {
     for (let item of this.selectedProducts) {
       if (item.product.id === productId) {
