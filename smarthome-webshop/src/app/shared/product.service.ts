@@ -71,7 +71,6 @@ export class ProductService {
     return this.http.get<TotalCountModel>(this.baseURL + "total-count/");
   }
 
-  // FIXME: gerProducts params
   searchProducts(term: string): Observable<PaginatedProductModel> {
     if (!term.trim()) {
       return of();
@@ -102,11 +101,11 @@ export class ProductService {
     return this.getProducts(this.currentPageSizelocal)
   }
 
-  submitOrder(userId: string, productId: number): Observable<OrderModel> {
+  submitOrder(username: string, product: any): Observable<OrderModel> {
 
     return this.http.post<OrderModel>(this.baseURL + "orders/", {
-      "user": userId,
-      "product": productId,
+      "user": username,
+      "product": product,
     })
   }
 

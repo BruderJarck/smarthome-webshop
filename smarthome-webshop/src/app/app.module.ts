@@ -14,8 +14,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CartComponent } from './components/cart/cart.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { DiscaimerDialog, Login, NavComponent } from './components/nav/nav.component';
-import { loginOrAsGuestDialogComponent } from './components/cart/cart.component';
-import { GuestEnterDataComponent } from './components/cart/cart.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { SensorDataComponent } from './components/sensor-data/sensor-data.component';
@@ -32,10 +30,10 @@ import { SharedService } from './shared/shared.service';
 import { UserpageComponent } from './components/userpage/userpage.component';
 import { EditAccountComponent } from './components/edit-account/edit-account.component';
 
-import { AuthInterceptor, authInterceptorProviders } from './auth-interceptor';
+import { AuthInterceptor } from './auth-interceptor';
 import { KasseComponent } from './components/kasse/kasse.component';
-import { ErrorComponent } from './error/error.component';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { UserMsgComponent } from './components/user-msg/user-msg.component';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.component';
 import { PaginationPanelComponent } from './components/pagination-panel/pagination-panel.component';
@@ -51,8 +49,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     NavComponent,
     Login,
     DiscaimerDialog,
-    loginOrAsGuestDialogComponent,
-    GuestEnterDataComponent,
     CategoriesComponent,
     SidebarComponent,
     ProductDetailComponent,
@@ -64,7 +60,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     EditAccountComponent,
     RegisterNewUserComponent,
     KasseComponent,
-    ErrorComponent,
+    UserMsgComponent,
     FilteringPanelComponent,
     FooterComponent,
     SortingPanelComponent,

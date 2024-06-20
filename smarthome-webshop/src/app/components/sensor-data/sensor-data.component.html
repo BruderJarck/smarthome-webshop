@@ -1,5 +1,5 @@
 <h2 class="header">Your sensors:</h2>
-<div fxLayout="row" fxLayoutAlign="center center"><mat-spinner *ngIf=loading></mat-spinner></div>
+<div fxLayout="row" *ngIf=loading fxFill fxLayoutAlign="center center"><mat-spinner style="scale: 30%"></mat-spinner></div>
 <div fxLayout="column" fxLayoutAlign="center center" *ngIf=noSensors>
   no sensors available
   <br>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginFailedComponent } from 'src/app/components/login-failed/login-failed.component';
+import { UserMsgComponent } from 'src/app/components/user-msg/user-msg.component';
 import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { SharedService } from 'src/app/shared/shared.service';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-  durationInSeconds = 5;
+  durationInSeconds:number = 5;
 
   constructor(
     public sharedService: SharedService,
@@ -27,11 +28,24 @@ export class MainPageComponent implements OnInit {
         }
       }
     )
+
+    this.sharedService.customerMessage.subscribe(
+      error => {
+        this.openErrorSnackBar(error)
+      }
+    )
   }
 
   openLoginFailedSnackBar() {
     this.snackBar.openFromComponent(LoginFailedComponent, {
       duration: this.durationInSeconds * 1000,
+    });
+  }
+
+  openErrorSnackBar(error: string) {
+    this.snackBar.openFromComponent(UserMsgComponent, {
+      duration: this.durationInSeconds * 1000,
+      data: error
     });
   }
 }

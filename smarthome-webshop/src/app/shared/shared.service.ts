@@ -11,6 +11,7 @@ export class SharedService {
   selectedProducts: any = [];
   totalAmmount: number = 0;
   loginFailed: Subject<boolean> = new Subject();
+  customerMessage: Subject<string> = new Subject()
   reLogin: Subject<boolean> = new Subject();
 
   private procductListSource = new BehaviorSubject<ProductModel[]>([]);
@@ -47,6 +48,14 @@ export class SharedService {
     }
     this.procductListSource.next(this.selectedProducts)
     localStorage.setItem("products_in_cart", JSON.stringify(this.productList))
+    this.calcTotalAmmount()
+  }
+
+  clearProducs(){
+    this.procductListSource.next([])
+    this.selectedProducts = []
+    this.calcTotalAmmount()
+    localStorage.removeItem("products_in_cart")
   }
 
   deleteProductById(productId: number) {

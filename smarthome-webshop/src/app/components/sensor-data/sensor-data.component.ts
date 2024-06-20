@@ -3,6 +3,7 @@ import { SensorService } from 'src/app/shared/sensor.service';
 import { SensorModel } from '../../models';
 import { SensorValueModel } from 'src/app/models';
 import { AccountService } from 'src/app/shared/account.service';
+import { SharedService } from 'src/app/shared/shared.service';
 @Component({
   selector: 'app-sensor-data',
   templateUrl: './sensor-data.component.html',
@@ -25,12 +26,14 @@ export class SensorDataComponent {
 
   constructor(
     private sensorService: SensorService,
-    private accountService: AccountService
-  ) {
-
+    private accountService: AccountService,
+    private sharedService: SharedService
+  ) { }
+  ngOnInit() {
     var username = localStorage.getItem('username') || ""
     this.accountService.getUserByUsername(username).subscribe(
       (user) => {
+        console.log(user)
         this.sensorService.filterSensorsByUserId(String(user.id)).subscribe(
           (sesorResponse) => {
             console.log(sesorResponse)
@@ -87,7 +90,6 @@ export class SensorDataComponent {
                         },
                       ],
                     };
-                    console.log(sesorResponse[_sensor]);
 
                     this.maxTemp = this.temp.sort((n1, n2) => n1 - n2).pop() || 0
                     this.maxHum = this.hum.sort((n1, n2) => n1 - n2).pop() || 0
@@ -114,10 +116,12 @@ export class SensorDataComponent {
             }
 
           },
-          err => console.log(err),
+          err => this.sharedService.customerMessage.next(Object.values(err.error).join(" ")),
         )
+      },
+      (err) => {
+        this.sharedService.customerMessage.next(Object.values(err.error).join(" "))
       }
     )
-
   }
 }

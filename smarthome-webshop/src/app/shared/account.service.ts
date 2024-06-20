@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { RespModel } from '../models';
 import { UserModel } from '../models';
@@ -54,58 +54,49 @@ export class AccountService {
   isLoggedIn(): boolean {
     var isAccessExpired = this.jwtHelper.isTokenExpired(localStorage.getItem("access") || "")
     var isRefreshExpired = this.jwtHelper.isTokenExpired(localStorage.getItem("refresh") || "")
-    console.log(isAccessExpired, isRefreshExpired)
     return !isAccessExpired || !isRefreshExpired
   }
 
   login(username: string, password: string) {
-    this.logout()
-    return this.http
-      .post<UserModel>(this.baseURL + 'api/token/', { username, password })
-      .pipe(
-        tap((res) => {
-          this.saveTokenObservable(res, false).subscribe(
-            (tokem) => {
-              console.log("token", tokem)
-              this.getUserByUsername(username).subscribe(
-                (res) => {
-                  console.log(res)
-                  localStorage.setItem('username', res.username)
-                  localStorage.setItem('email', res.email)
-                  localStorage.setItem('profile_pic', res.profile_picture)
-                  localStorage.setItem('id', String(res.id))
-                  // this.router.navigateByUrl(localStorage.getItem('routeAfterLogin') || '/')
-                },
-                (err) => {
-                  console.log(err);
-                  this.sharedService.loginFailed.next(true)
-                }
-              )
-            }
-          )
-        })
-      );
+    this.logout();
+
+    return this.http.post<UserModel>(`${this.baseURL}api/token/`, { username, password }).pipe(
+      tap((res) => {
+        this.saveTokenObservable(res, false).pipe(
+          switchMap(() => this.getUserByUsername(username))
+        ).subscribe(
+          (user) => {
+            localStorage.setItem('username', user.username);
+            localStorage.setItem('email', user.email);
+            localStorage.setItem('profile_pic', user.profile_picture);
+            localStorage.setItem('id', String(user.id));
+
+          },
+          (err) => {
+            this.sharedService.loginFailed.next(true);
+          }
+        );
+      })
+    );
   }
 
   refreshLogin() {
-    console.log(this.refreshToken);
     return this.http
       .post<RespModel>(
         this.baseURL + 'api/token/refresh/',
         { refresh: localStorage.getItem('refresh') }
       )
       .pipe(
-        tap((res) => console.log(`got refreshed tokens ${res['access']} ${this.isExpired(res['refresh'])} ${res}`)),
         tap((res) => this.saveTokens(res, true))
       );
   }
 
-  saveTokenObservable(res: any, refresh: boolean): Observable<string>{
-    return of(this.saveTokens(res,refresh))
-  } 
+  saveTokenObservable(res: any, refresh: boolean): Observable<string> {
+    return of(this.saveTokens(res, refresh))
+  }
 
 
-  saveTokens(res: any, refresh: boolean): string{
+  saveTokens(res: any, refresh: boolean): string {
     var accessToken: string = res['access'];
     var refreshToken: string = res['refresh'];
 
@@ -120,7 +111,7 @@ export class AccountService {
       this.refreshToken = refreshToken;
       localStorage.setItem('refresh', refreshToken);
     }
-  
+
     return accessToken
   }
 

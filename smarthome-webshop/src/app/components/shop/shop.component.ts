@@ -16,12 +16,14 @@ export class ShopComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10]
   pageSize: number = 5
   totalProductAmount: Number = 10
+  loading: boolean= true
 
   ngOnInit(): void {
-    this.productService.getProducts(this.pageSize).subscribe(() => console.log(this.pageSize))
+    this.productService.getProducts(this.pageSize).subscribe(() => this.loading = false)
 
     this.productListService.products.subscribe(products => {
       this.products = products;
+
     });
 
     this.productService.productListCount.subscribe(count => {

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/account.service';
 import { ProductService } from 'src/app/shared/product.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Login } from '../nav/nav.component';
-import { ProductModel } from 'src/app/models';
 
 @Component({
   selector: 'app-cart',
@@ -31,7 +30,7 @@ export class CartComponent implements OnInit {
     private productService: ProductService,
     private router: Router
 
-    ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -77,123 +76,30 @@ export class CartComponent implements OnInit {
       this.shipCost * this.totalItems;
   }
 
-    checkout(): void {
-    if (this.accountService.isLoggedIn() == true){
-      if (this.pay() == true){
+  checkout(): void {
+    if (this.accountService.isLoggedIn() == true) {
+      if (this.pay() == true) {
         this.itemsToBePruchased.forEach((element) => {
-          console.log(element)
-          if(element.product.category == 1){
-            this.productService.submitOrder(localStorage.getItem("username") || "" , element.product.name).subscribe((resp)=> console.log(resp))
+          if (element.product.category == 1) {
+            this.productService.submitOrder(localStorage.getItem("username") || "", element.product).subscribe()
           }
+          this.sharedService.clearProducs()
         })
       }
       this.router.navigateByUrl("/webshop/sensors")
     }
 
-    else{
-      const dialogRef = this.dialog.open(loginOrAsGuestDialogComponent)
+    else {
+      const dialogRef = this.dialog.open(Login);
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      });
+        if (result == true) {
+          this.checkout()
+        }
+      })
     }
   }
-  
+
   pay(): Boolean {
     return true;
-  }
-  }
-
-
-
-@Component({
-  selector: 'guest-enter-data-dialog',
-  templateUrl: 'guest_enter_data_dialog.html',
-})
-export class GuestEnterDataComponent {
-  constructor(private dialog: MatDialog,){}
-
-  emailControl = new UntypedFormControl('', [Validators.required, Validators.email]);
-
-  ngOnInit(){}
-
-  submitEmail(email: string){
-    if (this.emailControl.valid){
-      console.log(email);
-      this.dialog.closeAll()
-    }
-    else{
-      console.log('invalid mail');
-      
-    }
-    
-  }
-
-  getErrorMessage() {
-    if (this.emailControl.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.emailControl.hasError('email') ? 'Not a valid email' : '';
-  }
-}
-
-@Component({
-  selector: 'login-or-as-guest-dialog',
-  templateUrl: 'loginOrAsGuestDialog.html',
-})
-export class loginOrAsGuestDialogComponent {
-  imgSrc = localStorage.getItem("profile_pic") || "assets/default_avatar.png"
-  constructor(
-    private dialog: MatDialog,
-    private router: Router,
-    private shared: SharedService,
-    private accountService: AccountService,
-    private productService: ProductService,
-  ){}
-  
-  ngOnInit(){
-    this.imgSrc = localStorage.getItem("profile_pic") || ""
-    if(this.accountService.isExpired(localStorage.getItem('access') || "") == false){
-      this.router.navigateByUrl('/webshop/checkout')
-    }
-  }
-
-  login(){
-    localStorage.setItem('routeAfterLogin', '/webshop/checkout')
-    const dialogRef = this.dialog.open(Login);
-
-    this.shared.loginFailed.subscribe(res => {
-      if(res == false){
-        var buffer:any[] = this.shared.selectedProducts
-        buffer.forEach(element => {
-          if(element.product){
-              element.product.ip_address = "default_ip_address"
-              element.product.location = "default location"
-              element.product.name = "default location "
-          }
-        })
-        console.log(buffer);
-        
-          // this.productService.submitOrder(
-          //   localStorage.getItem('email') || "no email found",
-          //   buffer
-          // ).subscribe((res) => console.log(res)
-          // )
-        };
-        
-        this.router.navigateByUrl('/webshop/checkout')
-        this.dialog.closeAll()
-      })
-    
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-      // this.router.navigateByUrl("/checkout")
-      // this.dialog.closeAll()
-    });
-  }
-
-  asGuest(){
-    const dialogRef = this.dialog.open(GuestEnterDataComponent);
   }
 }
