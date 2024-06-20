@@ -81,6 +81,7 @@ export class Login {
   hide = true;
   constructor(
     public accountService: AccountService,
+    private sharedService: SharedService,
     public dialogRef: MatDialogRef<Login>
 
   ) { }
@@ -99,6 +100,8 @@ export class Login {
       .subscribe(
         () => {
           this.dialogRef.close(true)
+          this.sharedService.customerMessage.next(`Willkommen ${this.email.value}, Sie haben sich erfolgreich eingelogged`)
+
         }
       );
   }

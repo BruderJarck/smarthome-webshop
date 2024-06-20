@@ -11,6 +11,7 @@ export class SharedService {
   selectedProducts: any = [];
   totalAmmount: number = 0;
   loginFailed: Subject<boolean> = new Subject();
+  customerMessage: Subject<string> = new Subject()
   reLogin: Subject<boolean> = new Subject();
 
   private procductListSource = new BehaviorSubject<ProductModel[]>([]);

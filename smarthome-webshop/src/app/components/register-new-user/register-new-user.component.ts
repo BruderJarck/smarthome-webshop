@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, EmailValidator } from '@angular/forms';
 import { AccountService } from 'src/app/shared/account.service';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-register-new-user',
@@ -28,9 +29,9 @@ export class RegisterNewUserComponent implements OnInit {
 
 
   constructor(
-    private _formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private router: Router,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit() {
@@ -81,10 +82,18 @@ export class RegisterNewUserComponent implements OnInit {
     uploadData.append('email', email)
     this.accountService.registerNewUser(uploadData)
       .subscribe(
-        (res) => {
+        () => {
           this.accountService.login(username, password).subscribe(
-            () => this.router.navigateByUrl('/webshop/sensors')
+            () => {
+              this.router.navigateByUrl('/webshop/product-list')
+              this.sharedService.customerMessage.next(`Willkommen ${username}, Ihr Account wurde erfolgreich angelegt`)
+            }
+
           )
+        },
+        err => {
+          console.log(Object.values(err.error).join(" "))
+          this.sharedService.customerMessage.next(Object.values(err.error).join(" "))
         }
       )
   }

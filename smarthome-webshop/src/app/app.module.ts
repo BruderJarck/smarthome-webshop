@@ -32,7 +32,7 @@ import { EditAccountComponent } from './components/edit-account/edit-account.com
 
 import { AuthInterceptor } from './auth-interceptor';
 import { KasseComponent } from './components/kasse/kasse.component';
-import { ErrorComponent } from './error/error.component';
+import { UserMsgComponent } from './components/user-msg/user-msg.component';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { SortingPanelComponent } from './components/sorting-panel/sorting-panel.component';
@@ -60,7 +60,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     EditAccountComponent,
     RegisterNewUserComponent,
     KasseComponent,
-    ErrorComponent,
+    UserMsgComponent,
     FilteringPanelComponent,
     FooterComponent,
     SortingPanelComponent,

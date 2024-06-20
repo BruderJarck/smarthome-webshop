@@ -70,9 +70,9 @@ export class AccountService {
             localStorage.setItem('email', user.email);
             localStorage.setItem('profile_pic', user.profile_picture);
             localStorage.setItem('id', String(user.id));
+
           },
           (err) => {
-            console.error(err);
             this.sharedService.loginFailed.next(true);
           }
         );

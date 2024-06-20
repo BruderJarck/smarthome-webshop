@@ -10,7 +10,6 @@ import { AccountService } from './shared/account.service';
 import { EditAccountComponent } from './components/edit-account/edit-account.component';
 import { RegisterNewUserComponent } from './components/register-new-user/register-new-user.component';
 import { KasseComponent } from './components/kasse/kasse.component';
-import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'webshop/product-list', pathMatch: 'full' },
@@ -24,7 +23,6 @@ const routes: Routes = [
       { path: 'detail/:id', component: ProductDetailComponent },
       { path: 'register', component: RegisterNewUserComponent },
       { path: 'checkout', component: KasseComponent },
-      { path: 'error', component: ErrorComponent },
       { path: 'sensors', component: SensorDataComponent },
       {
         path: 'user',
