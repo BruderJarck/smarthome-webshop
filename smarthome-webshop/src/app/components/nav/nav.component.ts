@@ -52,7 +52,6 @@ export class NavComponent implements OnInit {
   home() {
     this.searchValue = ""
     this.productService.searchParam = ""
-    this.productService.getProducts(this.pageSize).subscribe()
   }
 
   search() {
