@@ -21,11 +21,6 @@ export class SharedService {
   productAmmount = this.productAmmountSource.asObservable();
 
   constructor(private _snackBar: MatSnackBar) {
-    var already_selected_products = localStorage.getItem("products_in_cart")
-    if (already_selected_products != null) {
-      this.selectedProducts = JSON.parse(already_selected_products || "").source._value
-      this.procductListSource.next(this.selectedProducts)
-    }
   }
 
   addProduct(product: ProductModel) {
@@ -47,7 +42,6 @@ export class SharedService {
       }
     }
     this.procductListSource.next(this.selectedProducts)
-    localStorage.setItem("products_in_cart", JSON.stringify(this.productList))
     this.calcTotalAmmount()
   }
 
@@ -55,7 +49,6 @@ export class SharedService {
     this.procductListSource.next([])
     this.selectedProducts = []
     this.calcTotalAmmount()
-    localStorage.removeItem("products_in_cart")
   }
 
   deleteProductById(productId: number) {
@@ -67,8 +60,7 @@ export class SharedService {
     }
     this.procductListSource.next(this.selectedProducts);
     this.calcTotalAmmount();
-    localStorage.setItem("products_in_cart", JSON.stringify(this.productList))
-  }
+    }
 
   changeAmmountById(productId: number, ammount: number) {
     for (let item of this.selectedProducts) {
@@ -97,8 +89,6 @@ export class SharedService {
     }
     this.procductListSource.next(this.selectedProducts);
     this.calcTotalAmmount();
-    localStorage.setItem("products_in_cart", JSON.stringify(this.productList))
-
   }
 
   calcTotalAmmount() {
@@ -111,5 +101,6 @@ export class SharedService {
     } else {
       this.productAmmountSource.next(this.totalAmmount.toString());
     }
+    console.log(this.totalAmmount, this.selectedProducts)
   }
 }

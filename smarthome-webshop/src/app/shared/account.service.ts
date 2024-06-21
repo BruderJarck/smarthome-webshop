@@ -124,7 +124,6 @@ export class AccountService {
     localStorage.removeItem('email')
     localStorage.removeItem('profile_pic')
     localStorage.removeItem('id')
-    localStorage.removeItem('products_in_cart')
   }
 
   getAllUseres(): Observable<UserModel[]> {
