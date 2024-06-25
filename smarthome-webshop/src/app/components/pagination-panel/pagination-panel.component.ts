@@ -23,7 +23,7 @@ export class PaginationPanelComponent {
 
   onPageChange(event: any) {
     this.pageSize = event.pageSize
-    this.productService.currentPageSiteSource.next(event.pageSize) 
+    this.productService.updatePageSize(event.pageSize) 
     const offset = event.pageIndex * this.pageSize
     this.productService.getProducts(event.pageSize, offset).subscribe()
   }

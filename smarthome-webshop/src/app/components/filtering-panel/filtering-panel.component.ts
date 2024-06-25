@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { truncate } from 'fs';
+import { elementAt } from 'rxjs/operators';
 import { ProductCategoryModel } from 'src/app/models';
 import { ProductService } from 'src/app/shared/product.service';
 
@@ -19,25 +19,39 @@ export class FilteringPanelComponent {
   ) { }
 
   ngOnInit() {
-
-    this.productService.getProductCategorys().subscribe(
-      (categories) => {
-        categories.forEach(element => {
-          element.selected = false
-        })
+    this.productService.currentCheckedCategorys.subscribe(checkedCategories => {
+      this.checkedCategorys = checkedCategories
+      this.productService.currentCategories.subscribe((categories) => {
+        checkedCategories.forEach(checkedCategory => {
+          checkedCategory.selected = true
+          this.categories.forEach(category => {
+            if (checkedCategory.name == category.name){
+              category = checkedCategory
+            }
+          })
+        })        
         this.categories = categories
-        this.loading = false
+        if(categories.length != 0){
+          this.loading = false
+        }
+        if(this.checkedCategorys.length != 0){
+          this.productService.filterProducts(this.checkedCategorys).subscribe()
+        }
       })
-
-    this.productService.currentCategorysSource.subscribe((categories) => {
-      console.log(categories)
-      categories.forEach(element => {
-        element.selected = true
-        // this.categories[]
-      });
-      this.categories = categories
     })
-  } 
+
+    if (this.categories.length == 0) {
+      this.productService.getProductCategorys().subscribe(
+        (categories) => {
+          categories.forEach(element => {
+            element.selected = false
+          })
+          this.productService.addCategories(categories)
+          this.categories = categories
+          this.loading = false
+        })
+    }
+  }
 
   categoryChecked(event: any, category: ProductCategoryModel) {
     if (event.checked == true) {
@@ -47,7 +61,7 @@ export class FilteringPanelComponent {
       this.checkedCategorys = this.checkedCategorys.filter(cat => cat.id !== category.id);
     }
     this.productService.filterProducts(this.checkedCategorys).subscribe()
-    this.productService.currentCategorysSource.next(this.checkedCategorys)
+    this.productService.updateCheckedCatregories(this.checkedCategorys)
   }
 
 }
