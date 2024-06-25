@@ -15,9 +15,15 @@ export class PaginationPanelComponent {
   pageSize: number = 5
   totalProductAmount: Number = 10
 
+  ngOnInit(){
+    this.productService.productListCount.subscribe((count) => {
+      this.totalProductAmount = count
+    })
+  }
+
   onPageChange(event: any) {
     this.pageSize = event.pageSize
-    this.productService.currentPageSiteSource.next(event.pageSize) 
+    this.productService.updatePageSize(event.pageSize) 
     const offset = event.pageIndex * this.pageSize
     this.productService.getProducts(event.pageSize, offset).subscribe()
   }
