@@ -81,12 +81,14 @@ export class CartComponent implements OnInit {
       if (this.pay() == true) {
         this.itemsToBePruchased.forEach((element) => {
           if (element.product.category == 1) {
-            this.productService.submitOrder(localStorage.getItem("username") || "", element.product).subscribe()
+            for (var i = 1; i <= element.ammount; i++) {
+              this.productService.submitOrder(localStorage.getItem("username") || "", element.product).subscribe()
+            }
           }
           this.sharedService.clearProducs()
         })
       }
-      this.router.navigateByUrl("/webshop/produc-list")
+      this.router.navigateByUrl("/webshop/checkout")
     }
 
     else {
