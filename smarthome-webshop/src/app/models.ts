@@ -56,6 +56,7 @@ export interface ProductCategoryModel {
   id: number
   name: string
   displayname: string
+  selected: boolean
 }
 
 export interface OrderingTypeModel {

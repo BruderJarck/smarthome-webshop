@@ -86,7 +86,7 @@ export class CartComponent implements OnInit {
           this.sharedService.clearProducs()
         })
       }
-      this.router.navigateByUrl("/webshop/sensors")
+      this.router.navigateByUrl("/webshop/congrats")
     }
 
     else {

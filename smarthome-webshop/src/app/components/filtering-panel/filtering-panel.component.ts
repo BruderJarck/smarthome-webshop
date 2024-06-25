@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { truncate } from 'fs';
 import { ProductCategoryModel } from 'src/app/models';
 import { ProductService } from 'src/app/shared/product.service';
 
@@ -9,7 +10,7 @@ import { ProductService } from 'src/app/shared/product.service';
 })
 export class FilteringPanelComponent {
 
-  categorys: ProductCategoryModel[] = []
+  categories: ProductCategoryModel[] = []
   checkedCategorys: ProductCategoryModel[] = []
   loading: boolean = true
 
@@ -18,12 +19,25 @@ export class FilteringPanelComponent {
   ) { }
 
   ngOnInit() {
+
     this.productService.getProductCategorys().subscribe(
-      (categorys) => {
-        this.categorys = categorys
+      (categories) => {
+        categories.forEach(element => {
+          element.selected = false
+        })
+        this.categories = categories
         this.loading = false
       })
-  }
+
+    this.productService.currentCategorysSource.subscribe((categories) => {
+      console.log(categories)
+      categories.forEach(element => {
+        element.selected = true
+        // this.categories[]
+      });
+      this.categories = categories
+    })
+  } 
 
   categoryChecked(event: any, category: ProductCategoryModel) {
     if (event.checked == true) {
@@ -33,6 +47,7 @@ export class FilteringPanelComponent {
       this.checkedCategorys = this.checkedCategorys.filter(cat => cat.id !== category.id);
     }
     this.productService.filterProducts(this.checkedCategorys).subscribe()
+    this.productService.currentCategorysSource.next(this.checkedCategorys)
   }
 
 }

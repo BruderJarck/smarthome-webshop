@@ -23,6 +23,9 @@ export class ProductService {
   public currentPageSiteSource: BehaviorSubject<number> = new BehaviorSubject<number>(5);
   currentPageSize = this.currentPageSiteSource.asObservable();
 
+  public currentCategorysSource: BehaviorSubject<ProductCategoryModel[]> = new BehaviorSubject<ProductCategoryModel[]>([]);
+  currentCategorys = this.currentPageSiteSource.asObservable();
+
   private productListCountSource: BehaviorSubject<Number> = new BehaviorSubject<Number>(0);
   productListCount = this.productListCountSource.asObservable();
 
@@ -65,10 +68,6 @@ export class ProductService {
   getProduct(name: string): Observable<ProductModel> {
     const url = this.productsURL + name + "/";
     return this.http.get<ProductModel>(url);
-  }
-
-  getTotalProductCount(): Observable<TotalCountModel> {
-    return this.http.get<TotalCountModel>(this.baseURL + "total-count/");
   }
 
   searchProducts(term: string): Observable<PaginatedProductModel> {

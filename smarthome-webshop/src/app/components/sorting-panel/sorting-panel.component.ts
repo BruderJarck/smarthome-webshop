@@ -15,7 +15,7 @@ export class SortingPanelComponent {
     { id: 3, displayname: 'Preis Aufsteigend', name: 'price' },
     { id: 4, displayname: 'Preis Absteigend', name: '-price' }
   ]
-  selectedValue: string = ""
+  selectedValue: string = "name"
 
   constructor(
     private productService: ProductService
