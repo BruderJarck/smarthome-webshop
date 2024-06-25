@@ -1,17 +1,9 @@
 @import "./smarthome-base.scss";
 
-@property --primary-color {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #fbac09;
+:root{
+  --primary-color: #fbac09;
+  --background-color: #f5f5f5;
 }
-
-@property --background-color {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #f5f5f5;
-}
-
 html,
 body {
   height: 100%;

@@ -101,6 +101,5 @@ export class SharedService {
     } else {
       this.productAmmountSource.next(this.totalAmmount.toString());
     }
-    console.log(this.totalAmmount, this.selectedProducts)
   }
 }
