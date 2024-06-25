@@ -39,8 +39,7 @@ export class RegisterNewUserComponent implements OnInit {
     this.FormGroup = new UntypedFormGroup({
       standartCtrl: new UntypedFormControl('', Validators.required),
       emailCtrl: new UntypedFormControl('', [Validators.required, Validators.email]),
-      passwordCtrl: new UntypedFormControl('', [Validators.required]),
-      // profilePictureCtrl: new FormControl('', Validators.required),
+      passwordCtrl: new UntypedFormControl('', [Validators.required])
     })
   }
 
