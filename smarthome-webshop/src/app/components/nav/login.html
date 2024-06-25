@@ -2,8 +2,8 @@
 <mat-dialog-content class="input" fxLayout="column">
   <mat-form-field appearance="fill" fxFlex="100" style="margin-bottom: 8px">
     <mat-label>Enter your username</mat-label>
-    <input matInput [formControl]="email" required />
-    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    <input matInput [formControl]="username" required />
+    <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill" fxFlex="100">
     <mat-label>Enter your password</mat-label>
