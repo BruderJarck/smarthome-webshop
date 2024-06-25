@@ -89,6 +89,7 @@ export class CartComponent implements OnInit {
         })
       }
       this.router.navigateByUrl("/webshop/congrats")
+
     }
 
     else {
