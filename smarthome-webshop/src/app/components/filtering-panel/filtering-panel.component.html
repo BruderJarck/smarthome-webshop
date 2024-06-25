@@ -2,8 +2,8 @@
     <span>Produkt Kategorien</span>
     <div fxLayout="row" *ngIf=loading fxFill fxLayoutAlign="center center"><mat-spinner style="scale: 30%"></mat-spinner></div>
     <div fxLayout="column">
-        @for (category of categorys; track category.id) {
-        <mat-checkbox (change)="categoryChecked($event, category)">{{category.displayname}}</mat-checkbox>
+        @for (category of categories; track category.id) {
+        <mat-checkbox [(ngModel)]="category.selected" (change)="categoryChecked($event, category)">{{category.displayname}}</mat-checkbox>
         }
     </div>
 </mat-card>

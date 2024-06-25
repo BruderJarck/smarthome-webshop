@@ -6,6 +6,8 @@ import { AccountService } from 'src/app/shared/account.service';
 import { ProductService } from 'src/app/shared/product.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Login } from '../nav/nav.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserMsgComponent } from '../user-msg/user-msg.component';
 
 @Component({
   selector: 'app-cart',
@@ -16,7 +18,7 @@ export class CartComponent implements OnInit {
   public itemsToBePruchased: any[] = [];
 
   totalPrice: number = 0;
-  mwst: number = 0.24; //in %
+  mwst: number = 0.19; //in %
   workCost: number = 120; //in €
   totalItems: number = 0;
   totalItemsBaseCost: number = 0;
@@ -28,7 +30,7 @@ export class CartComponent implements OnInit {
     public dialog: MatDialog,
     private accountService: AccountService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
 
   ) { }
 
@@ -92,6 +94,8 @@ export class CartComponent implements OnInit {
     }
 
     else {
+      this.sharedService.customerMessage.next("Bitte loggen Sie sich ein um das Proukt kaufen zukönnen.")
+
       const dialogRef = this.dialog.open(Login);
       dialogRef.afterClosed().subscribe(result => {
         if (result == true) {

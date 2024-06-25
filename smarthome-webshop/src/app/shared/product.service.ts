@@ -20,18 +20,17 @@ export class ProductService {
   public searchParam: string = ""
   private currentPageSizelocal: number = 5
 
-  public currentPageSiteSource: BehaviorSubject<number> = new BehaviorSubject<number>(5);
-  currentPageSize = this.currentPageSiteSource.asObservable();
+  private currentPageSizeSource: BehaviorSubject<number> = new BehaviorSubject<number>(5);
+  public currentPageSize: Observable<number> = this.currentPageSizeSource.asObservable()
+
+  private currentCategoriesSource: BehaviorSubject<ProductCategoryModel[]> = new BehaviorSubject<ProductCategoryModel[]>([])
+  public currentCategories: Observable<ProductCategoryModel[]> = this.currentCategoriesSource.asObservable()
+
+  private currentCheckedCategoriesSource: BehaviorSubject<ProductCategoryModel[]> = new BehaviorSubject<ProductCategoryModel[]>([]);
+  public currentCheckedCategorys: Observable<ProductCategoryModel[]> = this.currentCheckedCategoriesSource.asObservable()
 
   private productListCountSource: BehaviorSubject<Number> = new BehaviorSubject<Number>(0);
-  productListCount = this.productListCountSource.asObservable();
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('access'),
-    }),
-  };
+  public productListCount: Observable<Number>= this.productListCountSource.asObservable();
 
   ngOnInit(){
     this.currentPageSize.subscribe(
@@ -40,6 +39,17 @@ export class ProductService {
       })
   }
 
+  updatePageSize(pageSize: number){
+    this.currentPageSizeSource.next(pageSize)
+  }
+
+  updateCheckedCatregories(categories: ProductCategoryModel[]){
+    this.currentCheckedCategoriesSource.next(categories)
+  }
+
+  addCategories(categories: ProductCategoryModel[]){
+    this.currentCategoriesSource.next(categories)
+  }
   setProductListCount(value: number): void {
     this.productListCountSource.next(value);
   }
@@ -65,10 +75,6 @@ export class ProductService {
   getProduct(name: string): Observable<ProductModel> {
     const url = this.productsURL + name + "/";
     return this.http.get<ProductModel>(url);
-  }
-
-  getTotalProductCount(): Observable<TotalCountModel> {
-    return this.http.get<TotalCountModel>(this.baseURL + "total-count/");
   }
 
   searchProducts(term: string): Observable<PaginatedProductModel> {
