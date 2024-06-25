@@ -52,20 +52,30 @@ export class NavComponent implements OnInit {
   home() {
     this.searchValue = ""
     this.productService.searchParam = ""
+    this.router.navigateByUrl("webshop/product-list")
+    this.productService.getProducts(this.pageSize).subscribe()
   }
 
   search() {
-    this.productService.searchProducts(this.searchValue).subscribe(
-      (res) => {
-        if (this.searchValue != "") {
-          this.productListService.clearProducts()
-          this.productListService.addProduct(res.results)
+    this.router.navigateByUrl("webshop/product-list")
+    if (this.searchValue != "") {
+      this.productService.searchProducts(this.searchValue).subscribe(
+        (res) => {
+          if (this.searchValue != "") {
+            this.productListService.clearProducts()
+            this.productListService.addProduct(res.results)
+          }
+          else {
+            this.productService.getProducts(this.pageSize).subscribe()
+          }
         }
-        else {
-          this.productService.getProducts(this.pageSize).subscribe()
-        }
-      }
-    )
+      )
+    }
+    else {
+      this.home()
+
+    }
+
   }
 }
 
@@ -74,8 +84,8 @@ export class NavComponent implements OnInit {
   templateUrl: 'login.html',
 })
 export class Login {
-  email = new UntypedFormControl('', [Validators.required]);
-  password = new UntypedFormControl('', [Validators.required]);
+  username = new UntypedFormControl('', [Validators.min(1)]);
+  password = new UntypedFormControl('', [Validators.min(1)]);
 
   hide = true;
   constructor(
@@ -86,23 +96,21 @@ export class Login {
   ) { }
 
   getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    return this.username.hasError('required') ? 'Sie müssen einen wert eingeben' : '';
   }
 
   onSubmit() {
-    this.accountService
-      .login(this.email.value, this.password.value)
-      .subscribe(
-        () => {
-          this.dialogRef.close(true)
-          this.sharedService.customerMessage.next(`Willkommen ${this.email.value}, Sie haben sich erfolgreich eingelogged`)
+    if (this.username.value && this.password.value != "") {
+      this.accountService
+        .login(this.username.value, this.password.value)
+        .subscribe(
+          () => {
+            this.dialogRef.close(true)
+            this.sharedService.customerMessage.next(`Willkommen ${this.username.value}, Sie haben sich erfolgreich eingelogged`)
 
-        }
-      );
+          }
+        );
+    }
   }
 
   onLogout() {
@@ -114,6 +122,6 @@ export class Login {
   selector: 'discaimer-dialog',
   templateUrl: 'discaimer-dialog.html',
 })
-export class DiscaimerDialog { 
-  constructor(){}
+export class DiscaimerDialog {
+  constructor() { }
 }

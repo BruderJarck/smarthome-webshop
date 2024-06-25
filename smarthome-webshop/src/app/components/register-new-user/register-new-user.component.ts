@@ -92,7 +92,6 @@ export class RegisterNewUserComponent implements OnInit {
           )
         },
         err => {
-          console.log(Object.values(err.error).join(" "))
           this.sharedService.customerMessage.next(Object.values(err.error).join(" "))
         }
       )
