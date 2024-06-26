@@ -22,7 +22,7 @@ img {
 .mat-mdc-fab,
 .mat-mdc-mini-fab {
   color: black;
-  background-color: vaar(--primary-color);
+  background-color: var(--primary-color);
 }
 
 ::ng-deep .mat-badge-medium .mat-badge-content {

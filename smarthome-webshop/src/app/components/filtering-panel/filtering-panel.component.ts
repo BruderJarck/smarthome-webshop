@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { elementAt } from 'rxjs/operators';
 import { ProductCategoryModel } from 'src/app/models';
 import { ProductService } from 'src/app/shared/product.service';
 
@@ -9,7 +10,7 @@ import { ProductService } from 'src/app/shared/product.service';
 })
 export class FilteringPanelComponent {
 
-  categorys: ProductCategoryModel[] = []
+  categories: ProductCategoryModel[] = []
   checkedCategorys: ProductCategoryModel[] = []
   loading: boolean = true
 
@@ -18,11 +19,38 @@ export class FilteringPanelComponent {
   ) { }
 
   ngOnInit() {
-    this.productService.getProductCategorys().subscribe(
-      (categorys) => {
-        this.categorys = categorys
-        this.loading = false
+    this.productService.currentCheckedCategorys.subscribe(checkedCategories => {
+      this.checkedCategorys = checkedCategories
+      this.productService.currentCategories.subscribe((categories) => {
+        checkedCategories.forEach(checkedCategory => {
+          checkedCategory.selected = true
+          this.categories.forEach(category => {
+            if (checkedCategory.name == category.name){
+              category = checkedCategory
+            }
+          })
+        })        
+        this.categories = categories
+        if(categories.length != 0){
+          this.loading = false
+        }
+        if(this.checkedCategorys.length != 0){
+          this.productService.filterProducts(this.checkedCategorys).subscribe()
+        }
       })
+    })
+
+    if (this.categories.length == 0) {
+      this.productService.getProductCategorys().subscribe(
+        (categories) => {
+          categories.forEach(element => {
+            element.selected = false
+          })
+          this.productService.addCategories(categories)
+          this.categories = categories
+          this.loading = false
+        })
+    }
   }
 
   categoryChecked(event: any, category: ProductCategoryModel) {
@@ -33,6 +61,7 @@ export class FilteringPanelComponent {
       this.checkedCategorys = this.checkedCategorys.filter(cat => cat.id !== category.id);
     }
     this.productService.filterProducts(this.checkedCategorys).subscribe()
+    this.productService.updateCheckedCatregories(this.checkedCategorys)
   }
 
 }

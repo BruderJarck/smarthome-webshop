@@ -31,7 +31,7 @@ export class MainPageComponent implements OnInit {
 
     this.sharedService.customerMessage.subscribe(
       error => {
-        this.openErrorSnackBar(error)
+        this.openMsgSnackBar(error)
       }
     )
   }
@@ -42,7 +42,7 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  openErrorSnackBar(error: string) {
+  openMsgSnackBar(error: string) {
     this.snackBar.openFromComponent(UserMsgComponent, {
       duration: this.durationInSeconds * 1000,
       data: error

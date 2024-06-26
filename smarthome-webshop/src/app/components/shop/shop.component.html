@@ -1,7 +1,7 @@
 <div fxLayoutGap="grid" fxLayout="row grid" fxLayoutAlign="center">
   <div fxLayout="row" *ngIf=loading fxFill fxLayoutAlign="center center"><mat-spinner style="scale: 30%"></mat-spinner></div>
-  <mat-card  appearance="outlined" class="card" matRipple *ngFor="let product of products"  ngStyle.lt-sm="width: 300px; height: 450px">
-    <mat-card-content  fxLayout="column" fxlayoutAlign.lt-sm="center center" class="card-content" routerLink="/webshop/detail/{{ product.name }}">
+  <mat-card  appearance="outlined" class="card" matRipple *ngFor="let product of products"  ngStyle.lt-sm="width: 300px; height: 450px" routerLink="/webshop/detail/{{ product.name }}">
+    <mat-card-content  fxLayout="column" fxlayoutAlign.lt-sm="center center" class="card-content" >
       <img mat-card-image [src]=product.img class="card-content picture" ngStyle.lt-sm="max-height: 290px"/>
       <div fxLayout="row" fxLayoutAlign="start center">
         <div fxLayout="row" class="card-content price wrapper">
