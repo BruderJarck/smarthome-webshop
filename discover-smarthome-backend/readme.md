@@ -1,5 +1,19 @@
-# hero-angular-django-practice
+# Backend development setup
+Set env var 
 
-follow readme files in front end and backend folders and make them both run at the same time.
+`DJANO_SETTINGS_MODULE=webshop.settings_dev`
 
-## Have Fun
+Change in to working dir
+
+`cd discover-smarthome-backen`
+
+For initial setup migrate database
+
+`python manage.py makemigrations `
+
+`python manage.py migrate`
+
+Start Backend
+
+`python manage.py runserver 5000`
+
